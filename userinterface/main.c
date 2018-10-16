@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <gtk/gtk.h>
 
 void pitchtune(double freq){
     double input;
