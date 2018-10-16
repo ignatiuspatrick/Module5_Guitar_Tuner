@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+//#include <gtk/gtk.h>
 
 void pitchtune(double freq){
     double input;
-    while (input <= freq - 0.1 || input >= freq + 0.1){
+    while (input < freq - 0.1 || input > freq + 0.1){
         printf("input : ");
         scanf("%lf", &input); // read input received from the fpga, later will be replaced
-        if (input <= freq - 0.1){
+        if (input < freq - 0.1){
             printf("too low\n");
-        } else if (input >= freq + 0.1){
+        } else if (input > freq + 0.1){
             printf("too high\n");
         }
     }
@@ -29,7 +30,7 @@ void manualtune(){
     printf("Your choice : ");
     scanf("%d", &tuning);
     if (tuning == 1){
-        printf("Tuning standard E\n");
+        printf("Tuning Standard E\n");
         printf("Tuning String 1\n");
         pitchtune(82.4);
         printf("Tuning String 2\n");
@@ -43,8 +44,53 @@ void manualtune(){
         printf("Tuning String 6\n");
         pitchtune(329.6);
         printf("We are done!\n");
+    } else if (tuning == 2){
+        printf("Tuning Drop D\n");
+        printf("Tuning String 1\n");
+        pitchtune(73.4);
+        printf("Tuning String 2\n");
+        pitchtune(110.0);
+        printf("Tuning String 3\n");
+        pitchtune(146.8);
+        printf("Tuning String 4\n");
+        pitchtune(196.0);
+        printf("Tuning String 5\n");
+        pitchtune(246.9);
+        printf("Tuning String 6\n");
+        pitchtune(329.6);
+        printf("We are done!\n");
+    } else if (tuning == 3){
+        printf("Tuning standard E\n");
+        printf("Tuning String 1\n");
+        pitchtune(73.4);
+        printf("Tuning String 2\n");
+        pitchtune(98.0);
+        printf("Tuning String 3\n");
+        pitchtune(130.8);
+        printf("Tuning String 4\n");
+        pitchtune(174.6);
+        printf("Tuning String 5\n");
+        pitchtune(220.0);
+        printf("Tuning String 6\n");
+        pitchtune(293.7);
+        printf("We are done!\n");
+    } else if (tuning == 4){
+        printf("Tuning standard E\n");
+        printf("Tuning String 1\n");
+        pitchtune(65.4);
+        printf("Tuning String 2\n");
+        pitchtune(98.0);
+        printf("Tuning String 3\n");
+        pitchtune(130.8);
+        printf("Tuning String 4\n");
+        pitchtune(174.6);
+        printf("Tuning String 5\n");
+        pitchtune(220.0);
+        printf("Tuning String 6\n");
+        pitchtune(293.7);
+        printf("We are done!\n");
     } else {
-        printf("features coming soon");
+        printf("Please choose a valid tuning.\n");
         manualtune();
     }
 }
