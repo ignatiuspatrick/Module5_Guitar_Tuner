@@ -1,4 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <gtk/gtk.h> // the library fo the tui
+
+
+char* identifytune(int freq){
+    // read tune from
+    return NULL;
+}
 
 void pitchtune(double freq){
     double input;
@@ -15,6 +23,7 @@ void pitchtune(double freq){
 
 void automatictune(){
     // to be implemented
+
 }
 
 void manualtune(){
@@ -69,11 +78,15 @@ void scantabs(){
     // to be implemented
 }
 
+void welcometext(){
+    printf("Guitar Tuner by group 30\n");
+    printf("-------------------------\n");
+}
+
 int main() {
+    welcometext();
     while (0==0){
         int act = 0;
-        printf("Guitar Tuner by group 30\n");
-        printf("-------------------------\n");
         printf("Menu :\n");
         printf("1. Tune Guitar\n");
         printf("2. Scan tabs\n");
