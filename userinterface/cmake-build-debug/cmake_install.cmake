@@ -1,4 +1,4 @@
-# Install script for directory: /Users/ignatiuspatrick/CLionProjects/untitled1
+# Install script for directory: /Users/ignatiuspatrick/CLionProjects/Guitar_Tuner_mod5/userinterface
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/ignatiuspatrick/CLionProjects/untitled1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/ignatiuspatrick/CLionProjects/Guitar_Tuner_mod5/userinterface/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
