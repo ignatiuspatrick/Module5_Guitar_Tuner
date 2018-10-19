@@ -60,7 +60,7 @@ void manualtune(){
         pitchtune(329.6);
         printf("We are done!\n");
     } else if (tuning == 3){
-        printf("Tuning standard E\n");
+        printf("Tuning Standard D\n");
         printf("Tuning String 1\n");
         pitchtune(73.4);
         printf("Tuning String 2\n");
@@ -75,7 +75,7 @@ void manualtune(){
         pitchtune(293.7);
         printf("We are done!\n");
     } else if (tuning == 4){
-        printf("Tuning standard E\n");
+        printf("Tuning Drop C\n");
         printf("Tuning String 1\n");
         pitchtune(65.4);
         printf("Tuning String 2\n");
