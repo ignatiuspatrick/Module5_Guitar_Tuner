@@ -122,8 +122,6 @@ void welcometext(){
 }
 
 int main() {
-    printf("%s", pstandarde[0]);
-    /*
     welcometext();
     while (0==0){
         int act = 0;
@@ -141,7 +139,6 @@ int main() {
             break;
         }
     }
-     */
     return 0;
 }
 
