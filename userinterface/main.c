@@ -1,16 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <zconf.h>
+#include <math.h>
 //#include <gtk/gtk.h>
 
-void pitchtune(double freq){
-    double input;
-    while (input < freq - 0.1 || input > freq + 0.1){
+void pitchtune(float freq){
+    float input;
+    float tolerance = 0.1;
+    float lowerbound = floorf((freq - tolerance)*10);
+    float upperbound = floorf((freq + tolerance)*10);
+    while (0==0){
         printf("input : ");
-        scanf("%lf", &input); // read input received from the fpga, later will be replaced
-        if (input < freq - 0.1){
-            printf("too low\n");
-        } else if (input > freq + 0.1){
-            printf("too high\n");
+        scanf("%f", &input); // read input received from the fpga, later will be replaced
+        input = input*10;
+        if (input >= lowerbound && input <= upperbound){
+            printf("pitch perfect\n");
+            break;
+        } else {
+            if (input < lowerbound) {
+                printf("its too low\n");
+            } else if (input > upperbound) {
+                printf("its too high\n");
+            }
         }
     }
 }
@@ -110,8 +121,6 @@ void tuneguitar(){
     }
 }
 
-
-
 void scantabs(){
     // to be implemented
 }
@@ -135,7 +144,6 @@ int main() {
             break;
         }
     }
-
     return 0;
 }
 
