@@ -2,26 +2,28 @@
 #include <stdlib.h>
 #include <zconf.h>
 #include <math.h>
+#include <unistd.h>
 //#include <gtk/gtk.h>
 
 char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
-char *pdropd[6] = {"D2","A2","D3","G3","B3","E4"};
+char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};
 char *pstandardd[6] = {"D2","G2","C3","F3","A3","D4"};
-char *pdropc[6] = {"C2","G2","C3","F3","A3","D4"};
-char *allpitch[] = {"C2","D2","E2","G2","A2","C3","D3","F3","G3","A3","B3","D4","E4"};
+char *pdropc[6]     = {"C2","G2","C3","F3","A3","D4"};
+char *allpitch[]    = {"C2","D2","E2","G2","A2","C3","D3","F3","G3","A3","B3","D4","E4"}; //0-12
 float frstandarde[] = {82.4, 110.0, 146.8, 196.0, 246.9, 329.6};
-float frdropd[] = {73.4, 110.0, 146.8, 196.0, 246.9, 329.6};
+float frdropd[]     = {73.4, 110.0, 146.8, 196.0, 246.9, 329.6};
 float frstandardd[] = {73.4, 98.0, 130.8, 174.6, 220.0, 293.7};
-float frdropc[] = {65.4, 98.0, 130.8, 174.6, 220.0, 293.7};
-float allfreq[] =  {65.4,73.4,82.4,98.0,110.0,130.8,146.8,174.6,196.0,220.0,246.9,293.7,329.6};
+float frdropc[]     = {65.4, 98.0, 130.8, 174.6, 220.0, 293.7};
+float allfreq[]     = {65.4,73.4,82.4,98.0,110.0,130.8,146.8,174.6,196.0,220.0,246.9,293.7,329.6};
+
+float tolerance = 0.1;
 
 void pitchtune(float freq){
     float input;
-    float tolerance = 0.1;
     float lowerbound = floorf((freq - tolerance)*10);
     float upperbound = floorf((freq + tolerance)*10);
     while (0==0){
-        printf("input : ");
+        printf("Input : ");
         scanf("%f", &input); // read input received from the fpga, later will be replaced
         input = input*10;
         if (input >= lowerbound && input <= upperbound){
@@ -40,12 +42,32 @@ void pitchtune(float freq){
 
 void automatictune(){
     // to be implemented
+    char cinput;
     float input;
-    printf("Doing automatic tuning.....\n");
-    scanf("%f", &input);
-    // identify the pitch
+    while (0==0){
+        printf("Doing automatic tuning.....\n");
+        printf("Enter q to quit\n");
+        printf("Input : ");
+        scanf("%c", &cinput);
+        // identify the pitch
+        if (cinput == 'q'){
+            printf("Quitting program.....\n");
+            break;
+        } else {
+            input = atoi(cinput);
+            if (input*10 >= floorf((allfreq[0] - tolerance)*10) && input*10 <= floorf((allfreq[12] - tolerance*10))){
+                // search for the closest key
+                for (int i = 0 ; i < 12 ; i++){
 
-    // suggest something
+                }
+                // suggest something
+            } else {
+                printf("Input might be too high or too low\n");
+            }
+        }
+
+    }
+
 }
 
 void manualtune(){
