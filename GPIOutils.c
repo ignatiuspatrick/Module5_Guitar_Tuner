@@ -79,24 +79,25 @@ void changeClock (void){
 	}
 };
 
-int run (void)
+int runComBool = 1;
+
+void *runCommunication (void *vargp)
 {
 	//setRead();
+	wiringPiSetup();
+	clockPinNr = GPIOchange(0);
 	pinMode(clockPinNr,OUTPUT);
 	do {
 		delay(10);
 		changeClock();
-	} while (1);
-	return 0;
+	} while (runComBool);
 };
 
-int main (void)
+/*int main (void)
 {
-	wiringPiSetup();
-	clockPinNr = GPIOchange(0);
 	run();
 	return 0;
-};
+};*/
 /*
 int main (void)
 {
