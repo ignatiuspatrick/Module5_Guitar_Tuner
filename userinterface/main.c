@@ -58,7 +58,9 @@ void automatictune(){
             if (input*10 >= floorf((allfreq[0] - tolerance)*10) && input*10 <= floorf((allfreq[12] - tolerance*10))){
                 // search for the closest key
                 for (int i = 0 ; i < 12 ; i++){
-
+                    if (input*10 >= floorf((allfreq[i] - tolerance)*10) {
+                        break;
+                    }
                 }
                 // suggest something
             } else {
