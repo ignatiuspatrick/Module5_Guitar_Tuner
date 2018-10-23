@@ -1,0 +1,1 @@
+gcc GUI/GUIview.c -o GUIview `pkg-config --cflags --libs gtk+-2.0`
