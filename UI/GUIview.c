@@ -29,7 +29,7 @@ int main( int   argc,
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 
     label = gtk_label_new(NULL);
-    const char *str = "pizza is echt super lekker, waarom weet niet iedereen dit dafd adfa efadf eafea ef";
+    const char *str = "";
     gtk_label_set_text(label, str);
 
     gtk_container_add(GTK_CONTAINER (window), label);
@@ -41,20 +41,21 @@ int main( int   argc,
 
     //gtk_main ();
     printf("doei");
-    i = 0;
-    while (i <= 100000000){
+    int i = 0;
+    while (i <= 200000000){
         i = i + 1;
     }
-    const char *str2 = "";
+    const char *str2 = "pizza is echt super lekker, waarom weet niet iedereen dit dafd adfa efadf eafea ef";
     gtk_label_set_text(label, str2);
     printf("hoi");
 
     g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
 
 
-    int i = 0;
-    while (i <= 100000000){
+    i = 0;
+    while (i <= 500000000){
         i = i + 1;
     }
+    pthread_join(gui_thread, NULL);
     return 0;
 }
