@@ -1,5 +1,9 @@
 #include <gtk/gtk.h>
 
+float GUIptGetInput(){
+    return -1.0;
+}
+
 static void destroy( GtkWidget *widget,
                      gpointer   data )
 {
