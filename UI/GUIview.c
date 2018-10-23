@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include <gtk/gtk.h>
 
 float GUIptGetInput(){
@@ -10,6 +11,10 @@ static void destroy( GtkWidget *widget,
                      gpointer   data )
 {
     gtk_main_quit ();
+}
+
+void *test(void *iets){
+    gtk_main();
 }
 
 int main( int   argc,
@@ -31,13 +36,25 @@ int main( int   argc,
     gtk_widget_show  (window);
     gtk_widget_show (label);
 
-    delay(10);
+    pthread_t gui_thread;
+    pthread_create(&gui_thread, NULL, *test, NULL);
+
+    //gtk_main ();
+    printf("doei");
+    i = 0;
+    while (i <= 100000000){
+        i = i + 1;
+    }
     const char *str2 = "";
     gtk_label_set_text(label, str2);
+    printf("hoi");
 
     g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
 
-    gtk_main ();
 
+    int i = 0;
+    while (i <= 100000000){
+        i = i + 1;
+    }
     return 0;
 }
