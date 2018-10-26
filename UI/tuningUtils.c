@@ -2,8 +2,11 @@
 #include <math.h>
 #include <unistd.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "TUIview.c"
 #include "GUIview.c"
+
+int GUIBool = 0;
 
 char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
 char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};
