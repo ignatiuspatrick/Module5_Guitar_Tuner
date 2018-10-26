@@ -6,9 +6,14 @@
 GtkWidget *window;
 GtkWidget *displayText;
 GtkWidget *entry;
+GtkWidget*[] buttons;
 
 void setDisplayText(char* str){
     gtk_label_set_text(GTK_LABEL (displayText), str);
+}
+
+void setButton(char* str){
+
 }
 
 float GUIptGetInput(){
@@ -46,6 +51,7 @@ int main( int   argc,
 
     char *str2 = "pizza is echt super lekker, waarom weet \nniet iedereen dit dafd adfa efadf eafea ef";
     setDisplayText(str2);
+
     g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
 
     pthread_join(gui_thread, NULL);
