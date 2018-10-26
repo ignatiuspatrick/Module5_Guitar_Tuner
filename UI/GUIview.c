@@ -45,7 +45,7 @@ int main( int   argc,
     while (i <= 200000000){
         i = i + 1;
     }
-    const char *str2 = "pizza is echt super lekker, waarom weet niet iedereen dit dafd adfa efadf eafea ef";
+    const char *str2 = "pizza is echt super lekker, waarom weet \nniet iedereen dit dafd adfa efadf eafea ef";
     gtk_label_set_text(label, str2);
     printf("hoi");
 
