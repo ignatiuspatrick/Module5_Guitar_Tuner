@@ -6,7 +6,7 @@
 GtkWidget *window;
 GtkWidget *displayText;
 GtkWidget *entry;
-GtkWidget*[] buttons;
+//GtkWidget*[] buttons;
 
 void setDisplayText(char* str){
     gtk_label_set_text(GTK_LABEL (displayText), str);
