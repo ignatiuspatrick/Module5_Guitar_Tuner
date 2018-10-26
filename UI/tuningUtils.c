@@ -14,7 +14,7 @@ float frstandarde[] = {82.4, 110.0, 146.8, 196.0, 246.9, 329.6};
 float frdropd[]     = {73.4, 110.0, 146.8, 196.0, 246.9, 329.6};
 float frstandardd[] = {73.4, 98.0, 130.8, 174.6, 220.0, 293.7};
 float frdropc[]     = {65.4, 98.0, 130.8, 174.6, 220.0, 293.7};
-float allfreq[]     = {65.4,73.4,82.4,98.0,110.0,130.8,146.8,174.6,196.0,220.0,246.9,293.7,329.6};
+float allfreq[]     = {65.4, 73.4, 82.4, 98.0, 110.0, 130.8, 146.8, 174.6, 196.0, 220.0, 246.9, 293.7, 329.6};
 
 float tolerance = 0.1;
 
@@ -50,12 +50,14 @@ void ptHigh(){
     }
 }
 
-void pitchtune(float freq){
+void pitchTuneMan(float freq){
     float input;
     float lowerbound = floorf((freq - tolerance)*10);
     float upperbound = floorf((freq + tolerance)*10);
-    while (1) {
-        input = ptGetInput()*10;
+    while (1){
+        printf("Input : ");
+        scanf("%f", &input); // read input received from the fpga, later will be replaced
+        input = input*10;
         if (input >= lowerbound && input <= upperbound){
             printf("pitch perfect\n");
             break;
@@ -70,7 +72,21 @@ void pitchtune(float freq){
     printf("============================\n");
 }
 
-void automatictune(){
+void pitchTuneAuto(float target, float input){
+    float lowerbound = floorf((target - tolerance)*10);
+    float upperbound = floorf((target + tolerance)*10);
+    input = input*10;
+    if (input < lowerbound) {
+        printf("its too low\n");
+    } else if (input > upperbound) {
+        printf("its too high\n");
+    } else {
+        printf("pitch perfect\n");
+    }
+    printf("============================\n");
+}
+
+void automaticTune(){
     // to be implemented
     char cinput[10];
     float input;
@@ -106,7 +122,7 @@ void automatictune(){
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
                         printf("%s\n", allpitch[i]);
-                        pitchtuneauto(allfreq[i], input);
+                        pitchTuneAuto(allfreq[i], input);
                         break;
                     }
                 }
@@ -121,7 +137,7 @@ void automatictune(){
     }
 }
 
-void manualtune(){
+void manualTune(){
     int tuning;
     printf(" __________________________________\n");
     printf("|Which tuning do you want to do?   |\n");
@@ -136,37 +152,37 @@ void manualtune(){
         printf("Tuning Standard E\n");
         for (int i = 0; i < 6; i++){
             printf("Tuning String %d\n", i+1);
-            pitchtune(frstandarde[i]);
+            pitchTuneMan(frstandarde[i]);
         }
         printf("We are done!\n");
     } else if (tuning == 2){
         printf("Tuning Drop D\n");
         for (int i = 0; i < 6; i++){
             printf("Tuning String %d\n", i+1);
-            pitchtune(frdropd[i]);
+            pitchTuneMan(frdropd[i]);
         }
         printf("We are done!\n");
     } else if (tuning == 3){
         printf("Tuning standard D\n");
         for (int i = 0; i < 6; i++){
             printf("Tuning String %d\n", i+1);
-            pitchtune(frstandardd[i]);
+            pitchTuneMan(frstandardd[i]);
         }
         printf("We are done!\n");
     } else if (tuning == 4){
         printf("Tuning drop C\n");
         for (int i = 0; i < 6; i++){
             printf("Tuning String %d\n", i+1);
-            pitchtune(frdropc[i]);
+            pitchTuneMan(frdropc[i]);
         }
         printf("We are done!\n");
     } else {
         printf("Please choose a valid tuning.\n");
-        manualtune();
+        manualTune();
     }
 }
 
-void tuneguitar(){
+void tuneGuitar(){
     int method;
     printf(" ___________________________________ \n");
     printf("|Which method would you like to use?|\n");
@@ -177,17 +193,17 @@ void tuneguitar(){
     scanf("%d", &method);
     int pitch;
     if (method == 1){
-        automatictune();
+        automaticTune();
     } else if (method == 2){
-        manualtune();
+        manualTune();
     }
 }
 
-void scantabs(){
+void scanTabs(){
     // to be implemented
 }
 
-void welcometext(){
+void welcomeText(){
     printf(" ____________________________________\n");
     printf("|      Guitar Tuner by Group 30      |\n");
     printf("|____________________________________|\n");
@@ -195,7 +211,7 @@ void welcometext(){
 }
 
 int main() {
-    welcometext();
+    welcomeText();
     while (0==0){
         int act = 0;
         printf("Menu :\n");
@@ -205,9 +221,9 @@ int main() {
         printf("Your choice : ");
         scanf("%d", &act);
         if (act == 1){
-            tuneguitar();
+            tuneGuitar();
         } else if (act == 2){
-            scantabs();
+            scanTabs();
         } else if (act == 3){
             break;
         }
