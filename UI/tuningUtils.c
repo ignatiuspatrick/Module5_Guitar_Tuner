@@ -204,7 +204,7 @@ void tuneGuitar(){
     }
 }
 
-void mainMenuScan(){
+float mainMenuScan(){
     if (GUIBool){
         return GUImainScan();
     } else {
