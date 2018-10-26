@@ -189,11 +189,11 @@ void scanTabs(){
     // to be implemented
 }
 
-void tuningMenuScan() {
+int tuningMenuScan() {
     if (GUIBool){
-        GUItuningMenuScan();
+        return GUItuningMenuScan();
     } else {
-        TUItuningMenuScan();
+        return TUItuningMenuScan();
     }
 }
 
@@ -207,7 +207,7 @@ void tuneGuitar(){
     }
 }
 
-float mainMenuScan(){
+int mainMenuScan(){
     if (GUIBool){
         return GUImainScan();
     } else {
