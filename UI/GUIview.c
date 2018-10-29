@@ -78,6 +78,10 @@ void GUIThrowMessage(char *message){
     printf("%s\n", message);
 }
 
+void *runGUI2(void *iets) {
+    gtk_main();
+}
+
 int runGUI( int argc, char* argv[] )
 {
     gtk_init (&argc, &argv);
@@ -93,6 +97,8 @@ int runGUI( int argc, char* argv[] )
 
     gtk_widget_show_all  (window);
 
+    pthread_create(&gui_thread, NULL, *runGUI2, NULL);
+
     char *str2 = "pizza is echt super lekker";
     setDisplayText(str2);
 
@@ -100,6 +106,6 @@ int runGUI( int argc, char* argv[] )
     setButton(nextEvent, but1);
 
     g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
-    gtk_main();
+    //gtk_main();
     return 0;
 }

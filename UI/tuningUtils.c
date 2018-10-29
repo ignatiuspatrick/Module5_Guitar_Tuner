@@ -4,9 +4,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "TUIview.c"
+pthread_t gui_thread;
 #include "GUIview.c"
 
-int GUIBool = 0;
+int GUIBool = 1;
 
 char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
 char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};
@@ -236,7 +237,7 @@ void welcomeText(){
 
 int main( int argc, char* argv[] ) {
     if (GUIBool){
-        //runGUI(argc, argv);
+        runGUI(argc, argv);
     }
     welcomeText();
     while (0==0){
@@ -251,6 +252,9 @@ int main( int argc, char* argv[] ) {
         } else {
             throwMessage("Please make a valid choice!");
         }
+    }
+    if (GUIBool){
+        pthread_join(gui_thread, NULL);
     }
     return 0;
 }
