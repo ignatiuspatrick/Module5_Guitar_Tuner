@@ -1,10 +1,12 @@
 int GUImainScan() {
-    printf("Menu :\n");
-    printf("1. Tune Guitar\n");
-    printf("2. Scan tabs\n");
-    printf("3. Exit\n\n");
-    printf("Your choice : ");
     int choice;
+    printf(" ___________________________________ \n");
+    printf("| Menu :                            |\n");
+    printf("|1. Tune Guitar                     |\n");
+    printf("|2. Scan tabs                       |\n");
+    printf("|3. Exit                            |\n");
+    printf("|___________________________________|\n\n");
+    printf("Your choice : ");
     scanf("%d", choice);
     return choice;
 }
@@ -15,13 +17,13 @@ void TUIwelcomeText() {
     printf("|____________________________________|\n");
     printf("\n");
 }
-
-void TUItuningMenuScan(){
+int TUItuningMenuScan(){
     int choice;
     printf(" ___________________________________ \n");
     printf("|Which method would you like to use?|\n");
     printf("|1. Automatic                       |\n");
     printf("|2. Manual                          |\n");
+    printf("|3. Back                            |\n");
     printf("|___________________________________|\n\n");
     printf("Your choice : ");
     scanf("%d", &choice);
@@ -36,9 +38,18 @@ void TUIptManualTuneMenu(){
     printf("|2. Drop D     (D2-A2-D3-G3-B3-E4) |\n");
     printf("|3. Standard D (D2-G2-C3-F3-A3-D4) |\n");
     printf("|4. Drop C     (C2-G2-C3-F3-A3-D4) |\n");
+    printf("|5. Back                           |\n");
     printf("|__________________________________|\n\n");
     printf("Your choice : ");
     scanf("%d", &tuning);
+}
+
+char* TUIptAutoTuneMenu(){
+    char* cinput[10];
+    printf("Enter q to quit\n");
+    printf("Input : ");
+    scanf("%s", cinput);
+    return cinput;
 }
 
 float TUIptGetInput(){
@@ -61,5 +72,6 @@ void TUIptPitchPerfect(){
 }
 
 void ThrowMessage(char *message){
-    printf(message + "\n");
+    char* out = strcat(message, "\n");
+    printf("%s", out);
 }

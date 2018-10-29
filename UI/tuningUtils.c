@@ -22,71 +22,6 @@ float allfreq[]     = {65.4, 73.4, 82.4, 98.0, 110.0, 130.8, 146.8, 174.6, 196.0
 
 float tolerance = 0.1;
 
-void pitchTuneAuto(float target, float input){
-    float lowerbound = floorf((target - tolerance)*10);
-    float upperbound = floorf((target + tolerance)*10);
-    input = input*10;
-    if (input < lowerbound) {
-        printf("its too low\n");
-    } else if (input > upperbound) {
-        printf("its too high\n");
-    } else {
-        printf("pitch perfect\n");
-    }
-    printf("============================\n");
-}
-
-void automaticTune(){
-    // to be implemented
-    char cinput[10];
-    float input;
-    while (1) {
-        printf("Doing automatic tuning.....\n");
-        printf("Enter q to quit\n");
-        printf("Input : ");
-        scanf("%s", cinput);
-        // identify the pitch
-        if (strcmp(cinput, "q") == 0) {
-            printf("Quitting program.....\n");
-            break;
-        } else {
-            input = (float) atof(cinput);
-            // printf("we received %f", input*10);
-            float smallest = floorf((allfreq[0] - tolerance) * 10);
-            float biggest = floorf((allfreq[12] + tolerance) * 10);
-            // printf("smallest = %f , biggest = %f",smallest, biggest);
-            if (input * 10 >= smallest && input * 10 <= biggest) {
-                // search for the closest key
-                float upperb;
-                float lowerb;
-                for (int i = 0; i < 12; i++) {
-                    if (i == 0) { // if it is the first
-                        lowerb = floorf(((allfreq[i]) - tolerance) * 10);
-                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 - tolerance) * 10);
-                    } else if (i == 12) { // if it is the last
-                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
-                        upperb = floorf(((allfreq[i]) - tolerance) * 10);
-                    } else { // if it is in between the first n' last
-                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
-                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 - tolerance) * 10);
-                    }
-                    if (input * 10 >= lowerb && input * 10 <= upperb) {
-                        printf("%s\n", allpitch[i]);
-                        pitchTuneAuto(allfreq[i], input);
-                        break;
-                    }
-                }
-            } else if (input * 10 < floorf((allfreq[0] - tolerance) * 10)) {
-                printf("Input is too low\n");
-            } else if (input * 10 > floorf((allfreq[12] - tolerance) * 10)) {
-                printf("Input is too high\n");
-            } else {
-                printf("Please enter another input\n");
-            }
-        }
-    }
-}
-
 void ptPitchPerfect(){
     if (GUIBool){
         return GUIptPitchPerfect();
@@ -118,6 +53,76 @@ float ptGetInput(){
         return TUIptGetInput();
     }
 }
+
+void pitchTuneAuto(float target, float input){
+    float lowerbound = floorf((target - tolerance)*10);
+    float upperbound = floorf((target + tolerance)*10);
+    input = input*10;
+    if (input < lowerbound) {
+        throwMessage("its too low\n");
+    } else if (input > upperbound) {
+        throwMessage("its too high\n");
+    } else {
+        throwMessage("pitch perfect\n");
+    }
+}
+
+char* ptAutoTuneMenu(){
+    if (GUIBool){
+        return GUIptAutoTuneMenu();
+    } else {
+        return TUIptAutoTuneMenu();
+    }
+}
+
+void automaticTune(){
+    // to be implemented
+    char cinput[10];
+    float input;
+    while (1) {
+        cinput = ptAutoTuneMenu();
+        // identify the pitch
+        if (strcmp(cinput, "q") == 0) {
+            throwMessage("Quitting program.....\n");
+            break;
+        } else {
+            input = (float) atof(cinput);
+            // printf("we received %f", input*10);
+            float smallest = floorf((allfreq[0] - tolerance) * 10);
+            float biggest = floorf((allfreq[12] + tolerance) * 10);
+            // printf("smallest = %f , biggest = %f",smallest, biggest);
+            if (input * 10 >= smallest && input * 10 <= biggest) {
+                // search for the closest key
+                float upperb;
+                float lowerb;
+                for (int i = 0; i < 12; i++) {
+                    if (i == 0) { // if it is the first
+                        lowerb = floorf(((allfreq[i]) - tolerance) * 10);
+                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 - tolerance) * 10);
+                    } else if (i == 12) { // if it is the last
+                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
+                        upperb = floorf(((allfreq[i]) - tolerance) * 10);
+                    } else { // if it is in between the first n' last
+                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
+                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 - tolerance) * 10);
+                    }
+                    if (input * 10 >= lowerb && input * 10 <= upperb) {
+                        printf("%s\n", allpitch[i]);
+                        pitchTuneAuto(allfreq[i], input);
+                        break;
+                    }
+                }
+            } else if (input * 10 < floorf((allfreq[0] - tolerance) * 10)) {
+                throwMessage("Input is too low\n");
+            } else if (input * 10 > floorf((allfreq[12] - tolerance) * 10)) {
+                throwMessage("Input is too high\n");
+            } else {
+                throwMessage("Please enter another input\n");
+            }
+        }
+    }
+}
+
 
 void pitchTuneMan(char[] tuning){
     float tuneprop[6];
@@ -179,8 +184,10 @@ void manualTune(){
         pitchTuneMan("StD");
     } else if (tuning == 4){
         pitchTuneMan("DrC");
+    } else if (tuning == 5){
+        return 0;
     } else {
-        throwMessage("Please enter a valid input!");
+        throwMessage("Please enter a valid input!\n");
         manualTune();
     }
 }
@@ -204,6 +211,10 @@ void tuneGuitar(){
         automaticTune();
     } else if (method == 2){
         manualTune();
+    } else if (method == 3){
+        return 0;
+    } else {
+        throwMessage("Please enter a valid input!\n");
     }
 }
 
