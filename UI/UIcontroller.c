@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "tuningUtils.c"
-#include "GUIview.c"
+#include "GUIutils.c"
 
 int main() {
 }

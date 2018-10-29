@@ -1,4 +1,4 @@
-int GUImainScan() {
+int TUImainScan() {
     int choice;
     printf(" ___________________________________ \n");
     printf("| Menu :                            |\n");
@@ -7,7 +7,7 @@ int GUImainScan() {
     printf("|3. Exit                            |\n");
     printf("|___________________________________|\n\n");
     printf("Your choice : ");
-    scanf("%d", choice);
+    scanf("%d", &choice);
     return choice;
 }
 
@@ -45,7 +45,7 @@ void TUIptManualTuneMenu(){
 }
 
 char* TUIptAutoTuneMenu(){
-    char* cinput[10];
+    char* cinput;
     printf("Enter q to quit\n");
     printf("Input : ");
     scanf("%s", cinput);
@@ -71,7 +71,6 @@ void TUIptPitchPerfect(){
     printf("pitch perfect\n");
 }
 
-void ThrowMessage(char *message){
-    char* out = strcat(message, "\n");
-    printf("%s", out);
+void TUIThrowMessage(char *message){
+    printf("%s\n", message);
 }

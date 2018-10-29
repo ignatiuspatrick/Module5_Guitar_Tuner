@@ -1,7 +1,7 @@
 #include <zconf.h>
 #include <math.h>
 #include <unistd.h>
-#include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include "TUIview.c"
 #include "GUIview.c"
@@ -21,6 +21,14 @@ float frdropc[]     = {65.4, 98.0, 130.8, 174.6, 220.0, 293.7};
 float allfreq[]     = {65.4, 73.4, 82.4, 98.0, 110.0, 130.8, 146.8, 174.6, 196.0, 220.0, 246.9, 293.7, 329.6};
 
 float tolerance = 0.1;
+
+void throwMessage(char *message){
+    if (GUIBool){
+        GUIThrowMessage(message);
+    } else {
+        TUIThrowMessage(message);
+    }
+}
 
 void ptPitchPerfect(){
     if (GUIBool){
@@ -77,7 +85,7 @@ char* ptAutoTuneMenu(){
 
 void automaticTune(){
     // to be implemented
-    char cinput[10];
+    char* cinput;
     float input;
     while (1) {
         cinput = ptAutoTuneMenu();
@@ -124,15 +132,15 @@ void automaticTune(){
 }
 
 
-void pitchTuneMan(char[] tuning){
+void pitchTuneMan(char* tuning){
     float tuneprop[6];
-    if (strcmp("StE")){
+    if (strcmp("StE",tuning)){
         memcpy(&tuneprop, &frstandarde, sizeof tuneprop);
-    } else  if (strcmp("DrD")){
+    } else  if (strcmp("DrD",tuning)){
         memcpy(&tuneprop, &frdropd, sizeof tuneprop);
-    } else  if (strcmp("StD")){
+    } else  if (strcmp("StD",tuning)){
         memcpy(&tuneprop, &frstandardd, sizeof tuneprop);
-    } else  if (strcmp("DrC")){
+    } else  if (strcmp("DrC",tuning)){
         memcpy(&tuneprop, &frdropc, sizeof tuneprop);
     }
     for (int a = 0 ; a < 6 ; a++) {
@@ -158,19 +166,11 @@ void pitchTuneMan(char[] tuning){
 
 }
 
-void ptManualTuneMenu(){
+int ptManualTuneMenu(){
     if (GUIBool) {
         GUIptManualTuneMenu();
     } else {
         TUIptManualTuneMenu();
-    }
-}
-
-void throwMessage(char *message){
-    if (GUIBool){
-        GUIThrowMessage(message);
-    } else {
-        TUIThrowMessage(message);
     }
 }
 
@@ -185,7 +185,7 @@ void manualTune(){
     } else if (tuning == 4){
         pitchTuneMan("DrC");
     } else if (tuning == 5){
-        return 0;
+        //TODO: return to previous
     } else {
         throwMessage("Please enter a valid input!\n");
         manualTune();
@@ -205,14 +205,14 @@ int tuningMenuScan() {
 }
 
 void tuneGuitar(){
-    int choice;
-    choice = tuningMenuScan();
+    int method;
+    method = tuningMenuScan();
     if (method == 1){
         automaticTune();
     } else if (method == 2){
         manualTune();
     } else if (method == 3){
-        return 0;
+        //TODO: return to previous
     } else {
         throwMessage("Please enter a valid input!\n");
     }
@@ -234,7 +234,10 @@ void welcomeText(){
     }
 }
 
-int main() {
+int main( int argc, char* argv[] ) {
+    if (GUIBool){
+        //runGUI(argc, argv);
+    }
     welcomeText();
     while (0==0){
         int act = 0;
@@ -246,7 +249,7 @@ int main() {
         } else if (act == 3){
             break;
         } else {
-            ThrowMessage("Please make a valid choice!");
+            throwMessage("Please make a valid choice!");
         }
     }
     return 0;

@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <gtk/gtk.h>
+
+GtkWidget *window;
+GtkWidget *displayText;
+GtkWidget *fixed;
+GtkWidget *entry;
+GtkWidget *buttons[4];
+int buttonNumber = 0;
+
+void setDisplayText(char* str){
+    gtk_label_set_text(GTK_LABEL (displayText), str);
+}
+
+void setButton(void*, char*);
+void removeButtons();
+
+void nextEvent(){
+    removeButtons();
+    char *but2 = "doe";
+    setButton(nextEvent, but2);
+}
+
+void removeButtons(){
+    for(int i = 0; i < buttonNumber; i++){
+        gtk_widget_destroy(buttons[i]);
+    }
+    buttonNumber = 0;
+}
+
+void setButton(void* function, char* str){
+    GtkWidget *button;
+    button = gtk_button_new_with_label(str);
+    gtk_fixed_put(GTK_FIXED (fixed), button, 200, 100 + buttonNumber*50);
+    g_signal_connect (button, "clicked",
+                      G_CALLBACK (function), NULL);
+    buttons[buttonNumber] = button;
+    buttonNumber++;
+    gtk_widget_show  (button);
+}
+
+static void destroy( GtkWidget *widget,
+                     gpointer   data )
+{
+    gtk_main_quit ();
+}
