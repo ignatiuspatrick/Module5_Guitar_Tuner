@@ -1,35 +1,32 @@
 #include "GUIutils.c"
 
 int GUImainScan() {
-    int choice;
-    printf(" ___________________________________ \n");
-    printf("| Menu :                            |\n");
-    printf("|1. Tune Guitar                     |\n");
-    printf("|2. Scan tabs                       |\n");
-    printf("|3. Exit                            |\n");
-    printf("|___________________________________|\n\n");
-    printf("Your choice : ");
-    scanf("%d", &choice);
-    return choice;
+    buttonSetValueMin1();
+    setDisplayText("Menu:");
+    removeButtons();
+    setButton(buttonSetValue1,"Tune guitar");
+    setButton(buttonSetValue2,"Scan tabs");
+    setButton(buttonSetValue3,"Exit");
+    while(buttonOutputNumber == -1){
+        sched_yield();
+    }
+    return buttonOutputNumber;
 }
 
 void GUIwelcomeText() {
-    printf(" ____________________________________\n");
-    printf("|      Guitar Tuner by Group 30      |\n");
-    printf("|____________________________________|\n");
-    printf("\n");
+    setDisplayText("Guitar Tuner by Group 30");
 }
 int GUItuningMenuScan(){
-    int choice;
-    printf(" ___________________________________ \n");
-    printf("|Which method would you like to use?|\n");
-    printf("|1. Automatic                       |\n");
-    printf("|2. Manual                          |\n");
-    printf("|3. Back                            |\n");
-    printf("|___________________________________|\n\n");
-    printf("Your choice : ");
-    scanf("%d", &choice);
-    return choice;
+    buttonSetValueMin1();
+    setDisplayText("Which method would you like to use:");
+    removeButtons();
+    setButton(buttonSetValue1,"Automatic");
+    setButton(buttonSetValue2,"Manual");
+    setButton(buttonSetValue3,"back");
+    while(buttonOutputNumber == -1){
+        sched_yield();
+    }
+    return buttonOutputNumber;
 }
 
 int GUIptManualTuneMenu(){
@@ -63,49 +60,21 @@ float GUIptGetInput(){
 }
 
 void GUIptHigh(){
-    printf("its too high\n");
+    setErrorText("its too high");
 }
 
 void GUIptLow(){
-    printf("its too low\n");
+    setErrorText("its too low");
 }
 
 void GUIptPitchPerfect(){
-    printf("pitch perfect\n");
+    setErrorText("pitch perfect");
 }
 
 void GUIThrowMessage(char *message){
-    printf("%s\n", message);
+    setErrorText(message);
 }
 
-void *runGUI2(void *iets) {
+void *runGUI(void *iets) {
     gtk_main();
-}
-
-int runGUI( int argc, char* argv[] )
-{
-    gtk_init (&argc, &argv);
-
-    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW (window), "Our Application");
-    gtk_window_set_default_size(GTK_WINDOW (window), 500, 750);
-
-    displayText = gtk_label_new(NULL);
-    fixed = gtk_fixed_new();
-    gtk_container_add(GTK_CONTAINER (window), fixed);
-    gtk_fixed_put(GTK_FIXED (fixed), displayText, 100, 50);
-
-    gtk_widget_show_all  (window);
-
-    pthread_create(&gui_thread, NULL, *runGUI2, NULL);
-
-    char *str2 = "pizza is echt super lekker";
-    setDisplayText(str2);
-
-    char *but1 = "hoi";
-    setButton(nextEvent, but1);
-
-    g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
-    //gtk_main();
-    return 0;
 }

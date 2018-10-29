@@ -237,7 +237,30 @@ void welcomeText(){
 
 int main( int argc, char* argv[] ) {
     if (GUIBool){
-        runGUI(argc, argv);
+        gtk_init (&argc, &argv);
+        window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+        gtk_window_set_title(GTK_WINDOW (window), "Our Application");
+        gtk_window_set_default_size(GTK_WINDOW (window), 500, 750);
+
+        displayText = gtk_label_new(NULL);
+        errorText = gtk_label_new(NULL);
+        fixed = gtk_fixed_new();
+        gtk_container_add(GTK_CONTAINER (window), fixed);
+        gtk_fixed_put(GTK_FIXED (fixed), displayText, 100, 50);
+        gtk_fixed_put(GTK_FIXED (fixed), errorText, 100, 100);
+
+        gtk_widget_show_all  (window);
+
+
+
+        char *str2 = "pizza is echt super lekker";
+        setDisplayText(str2);
+        setErrorText("");
+
+        setButton(GUIwelcomeText, "hoi");
+
+        g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
+        pthread_create(&gui_thread, NULL, *runGUI, NULL);
     }
     welcomeText();
     while (0==0){
@@ -247,7 +270,14 @@ int main( int argc, char* argv[] ) {
             tuneGuitar();
         } else if (act == 2){
             scanTabs();
+            if (GUIBool){
+                gtk_main_quit ();
+            };
+            break;
         } else if (act == 3){
+            if (GUIBool){
+                gtk_main_quit ();
+            };
             break;
         } else {
             throwMessage("Please make a valid choice!");
