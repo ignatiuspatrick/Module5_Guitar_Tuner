@@ -30,7 +30,7 @@ int TUItuningMenuScan(){
     return choice;
 }
 
-void TUIptManualTuneMenu(){
+int TUIptManualTuneMenu(){
     int tuning;
     printf(" __________________________________\n");
     printf("|Which tuning do you want to do?   |\n");
@@ -42,6 +42,7 @@ void TUIptManualTuneMenu(){
     printf("|__________________________________|\n\n");
     printf("Your choice : ");
     scanf("%d", &tuning);
+    return tuning;
 }
 
 char* TUIptAutoTuneMenu(){

@@ -168,9 +168,9 @@ void pitchTuneMan(char* tuning){
 
 int ptManualTuneMenu(){
     if (GUIBool) {
-        GUIptManualTuneMenu();
+        return GUIptManualTuneMenu();
     } else {
-        TUIptManualTuneMenu();
+        return TUIptManualTuneMenu();
     }
 }
 
