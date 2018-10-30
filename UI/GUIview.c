@@ -45,10 +45,11 @@ int GUIptManualTuneMenu(){
 }
 
 char* GUIptAutoTuneMenu(){
-    char* cinput;
+    char cinput2[5];
     printf("Enter q to quit\n");
     printf("Input : ");
-    scanf("%s", cinput);
+    scanf("%s", cinput2);
+    char* cinput = cinput2;
     return cinput;
 }
 

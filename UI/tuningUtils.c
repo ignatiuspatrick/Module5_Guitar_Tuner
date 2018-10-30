@@ -8,7 +8,7 @@ pthread_t gui_thread;
 #include "GUIview.c"
 #include "ourUtilFunctions.c"
 
-int GUIBool = 0;
+int GUIBool = 1;
 
 char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
 char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};

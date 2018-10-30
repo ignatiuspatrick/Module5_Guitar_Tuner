@@ -20,7 +20,6 @@ int getNumber(char c){
     } else if (c=='9'){
         return 9;
     } else {
-        printf("wrong%d\n",c & 0xff);
         return -1;
     }
 }
