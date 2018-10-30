@@ -2,7 +2,7 @@ int getNumber(char c){
     if (c=='0'){
         return 0;
     } else if (c=='1'){
-        return 2;
+        return 1;
     } else if (c=='2'){
         return 2;
     } else if (c=='3'){
@@ -28,7 +28,7 @@ float myatof(char* str){
     int pointBool = 0;
     float ret = 0;
     int div = 1;
-    for(int i = 0; i < sizeof(str) - 2; i++){
+    for(int i = 0; i < sizeof(str); i++){
         char c = str[i];
         if (c == '\0'){
             return ret/div;
