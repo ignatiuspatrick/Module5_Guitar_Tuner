@@ -46,11 +46,11 @@ int TUIptManualTuneMenu(){
 }
 
 char* TUIptAutoTuneMenu(){
-    char* cinput[10];
+    char cinput2[5];
     printf("Enter q to quit\n");
     printf("Input : ");
-    gets(cinput);
-    printf("\n");
+    scanf("%s", cinput2);
+    char* cinput = cinput2;
     return cinput;
 }
 

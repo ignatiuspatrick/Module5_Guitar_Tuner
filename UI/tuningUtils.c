@@ -6,6 +6,7 @@
 #include "TUIview.c"
 pthread_t gui_thread;
 #include "GUIview.c"
+#include "ourUtilFunctions.c"
 
 int GUIBool = 0;
 
@@ -95,7 +96,7 @@ void automaticTune(){
             throwMessage("Quitting program.....\n");
             break;
         } else {
-            input = (float) atof(cinput);
+            input = (float) myatof(cinput);
             // printf("we received %f", input*10);
             float smallest = floorf((allfreq[0] - tolerance) * 10);
             float biggest = floorf((allfreq[12] + tolerance) * 10);
