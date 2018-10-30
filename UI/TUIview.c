@@ -1,3 +1,5 @@
+#include "ourUtilFunctions.c"
+
 int TUImainScan() {
     int choice;
     printf(" ___________________________________ \n");

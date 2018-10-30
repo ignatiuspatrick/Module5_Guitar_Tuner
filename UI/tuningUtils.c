@@ -6,7 +6,6 @@
 #include "TUIview.c"
 pthread_t gui_thread;
 #include "GUIview.c"
-#include "ourUtilFunctions.c"
 
 int GUIBool = 1;
 

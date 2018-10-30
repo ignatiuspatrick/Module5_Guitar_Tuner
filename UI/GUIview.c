@@ -30,7 +30,19 @@ int GUItuningMenuScan(){
 }
 
 int GUIptManualTuneMenu(){
-    int tuning;
+    buttonSetValueMin1();
+    setDisplayText("Which tuning do you want to do?");
+    removeButtons();
+    setButton(buttonSetValue1,"Standard_E_(E2-A2-D3-G3-B3-E4)");
+    setButton(buttonSetValue2,"Drop_D_____(D2-A2-D3-G3-B3-E4)");
+    setButton(buttonSetValue3,"Standard_D_(D2-G2-C3-F3-A3-D4)");
+    setButton(buttonSetValue2,"Drop_C_____(C2-G2-C3-F3-A3-D4)");
+    setButton(buttonSetValue3,"Back__________________________");
+    while(buttonOutputNumber == -1){
+        sched_yield();
+    }
+    return buttonOutputNumber;
+    /*int tuning;
     printf(" __________________________________\n");
     printf("|Which tuning do you want to do?   |\n");
     printf("|1. Standard E (E2-A2-D3-G3-B3-E4) |\n");
@@ -41,7 +53,7 @@ int GUIptManualTuneMenu(){
     printf("|__________________________________|\n\n");
     printf("Your choice : ");
     scanf("%d", &tuning);
-    return tuning;
+    return tuning;*/
 }
 
 char* GUIptAutoTuneMenu(){
@@ -54,10 +66,16 @@ char* GUIptAutoTuneMenu(){
 }
 
 float GUIptGetInput(){
-    float ret_input;
+    char cinput2[5];
+    printf("Input : ");
+    scanf("%s", cinput2); // read input received from the fpga, later will be replaced
+    char* cinput = cinput2;
+    float ret_input = myatof(cinput);
+    return ret_input;
+    /*float ret_input;
     printf("Input : ");
     scanf("%f", &ret_input); // read input received from the fpga, later will be replaced
-    return ret_input;
+    return ret_input;*/
 }
 
 void GUIptHigh(){
