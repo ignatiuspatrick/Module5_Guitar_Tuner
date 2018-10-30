@@ -204,58 +204,7 @@ int tuningMenuScan() {
     }
 }
 
-int scanTabsMenuScan(){
-    if(GUIBool){
-        return GUIscanTabsMenuScan();
-    } else {
-        return TUIscanTabsMenuScan();
-    }
-}
 
-int displayScanTabsGuide(){
-    if (GUIBool) {
-        return GUIdisplayScanTabsGuide();
-    } else {
-        return TUIdisplayScanTabsGuide();
-    }
-}
-
-void scanTabs(){
-    int beat;
-    // display instructions and menus
-    while (1){
-        beat = displayScanTabsGuide();
-        if (input == 1) {
-            beat = 2;
-            break;
-        } else if (input == 2){
-            beat = 3;
-            break;
-        } else if (input == 3){
-            beat = 4;
-            break;
-        } else if (input == 4){
-            main();
-            break;
-        } else {
-            throwMessage("Please enter a valid input!");
-        }
-    }
-
-    int input = 0;
-    // scan for start of the record
-    while (!input == 1){
-        input = scanTabsMenuScan();
-    }
-    // record the song
-    while (1){
-
-    }
-
-    // proccess the input
-
-    // display the result
-}
 
 void tuneGuitar(){
     int method;
