@@ -7,12 +7,11 @@ GtkWidget *window;
 GtkWidget *displayText;
 GtkWidget *errorText;
 GtkWidget *fixed;
-GtkWidget *entry;
+//GtkWidget *entry;
 GtkWidget *buttons[4];
 int buttonNumber = 0;
 
 int buttonOutputNumber = -1;
-
 void buttonSetValueMin1(){
     buttonOutputNumber = -1;
 }

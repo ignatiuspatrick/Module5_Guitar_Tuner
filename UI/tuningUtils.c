@@ -7,7 +7,7 @@
 pthread_t gui_thread;
 #include "GUIview.c"
 
-int GUIBool = 1;
+int GUIBool = 0;
 
 char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
 char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};
@@ -91,7 +91,7 @@ void automaticTune(){
     while (1) {
         cinput = ptAutoTuneMenu();
         // identify the pitch
-        if (strcmp(cinput, "q") == 0) {
+        if (!strcmp(cinput, "q")) {
             throwMessage("Quitting program.....\n");
             break;
         } else {
@@ -135,13 +135,13 @@ void automaticTune(){
 
 void pitchTuneMan(char* tuning){
     float tuneprop[6];
-    if (strcmp("StE",tuning)){
+    if (!strcmp("StE",tuning)){
         memcpy(&tuneprop, &frstandarde, sizeof tuneprop);
-    } else  if (strcmp("DrD",tuning)){
+    } else  if (!strcmp("DrD",tuning)){
         memcpy(&tuneprop, &frdropd, sizeof tuneprop);
-    } else  if (strcmp("StD",tuning)){
+    } else  if (!strcmp("StD",tuning)){
         memcpy(&tuneprop, &frstandardd, sizeof tuneprop);
-    } else  if (strcmp("DrC",tuning)){
+    } else  if (!strcmp("DrC",tuning)){
         memcpy(&tuneprop, &frdropc, sizeof tuneprop);
     }
     for (int a = 0 ; a < 6 ; a++) {
@@ -213,6 +213,7 @@ void tuneGuitar(){
     } else if (method == 2){
         manualTune();
     } else if (method == 3){
+        throwMessage("not implemented");
         //TODO: return to previous
     } else {
         throwMessage("Please enter a valid input!\n");
@@ -245,11 +246,11 @@ int main( int argc, char* argv[] ) {
         displayText = gtk_label_new(NULL);
         errorText = gtk_label_new(NULL);
         fixed = gtk_fixed_new();
-        gtk_container_add(GTK_CONTAINER (window), fixed);
-        gtk_fixed_put(GTK_FIXED (fixed), displayText, 100, 50);
-        gtk_fixed_put(GTK_FIXED (fixed), errorText, 100, 100);
+        gtk_container_add(GTK_CONTAINER (window), GTK_WIDGET (fixed));
+        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (displayText), 100, 50);
+        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (errorText), 100, 100);
 
-        gtk_widget_show_all  (window);
+        gtk_widget_show_all  (GTK_WIDGET (window));
 
 
 
