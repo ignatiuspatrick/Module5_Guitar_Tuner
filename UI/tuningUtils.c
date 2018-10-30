@@ -8,7 +8,7 @@ pthread_t gui_thread;
 #include "GUIview.c"
 #include "ourUtilFunctions.c"
 
-int GUIBool = 0;
+int GUIBool = 1;
 
 char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
 char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};
@@ -69,8 +69,10 @@ void pitchTuneAuto(float target, float input){
     float upperbound = floorf((target + tolerance)*10);
     input = input*10;
     if (input < lowerbound) {
+        //printf("hoi%f %f\n",target, input);
         throwMessage("its too low\n");
     } else if (input > upperbound) {
+        //printf("hoi%f %f\n",target, input);
         throwMessage("its too high\n");
     } else {
         throwMessage("pitch perfect\n");
@@ -108,13 +110,13 @@ void automaticTune(){
                 for (int i = 0; i < 12; i++) {
                     if (i == 0) { // if it is the first
                         lowerb = floorf(((allfreq[i]) - tolerance) * 10);
-                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 - tolerance) * 10);
+                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     } else if (i == 12) { // if it is the last
                         lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
-                        upperb = floorf(((allfreq[i]) - tolerance) * 10);
+                        upperb = floorf(((allfreq[i]) + tolerance) * 10);
                     } else { // if it is in between the first n' last
                         lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
-                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 - tolerance) * 10);
+                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
                         printf("%s\n", allpitch[i]);
@@ -287,6 +289,12 @@ void welcomeText(){
 }
 
 int main( int argc, char* argv[] ) {
+    if (argc > 1)
+    {
+        GUIBool = 1;
+    } else {
+        GUIBool = 0;
+    }
     if (GUIBool){
         gtk_init (&argc, &argv);
         window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
