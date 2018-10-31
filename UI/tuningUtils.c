@@ -126,7 +126,7 @@ void automaticTune(){
                 }
             } else if (input * 10 < floorf((allfreq[0] - tolerance) * 10)) {
                 throwMessage("Input is too low\n");
-            } else if (input * 10 > floorf((allfreq[12] - tolerance) * 10)) {
+            } else if (input * 10 > floorf((allfreq[12] + tolerance) * 10)) {
                 throwMessage("Input is too high\n");
             } else {
                 throwMessage("Please enter another input\n");
