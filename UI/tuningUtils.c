@@ -276,7 +276,7 @@ void *runGUI(void *iets){
     runProgram();
 }
 
-int main( int argc, char* argv[] ) {
+int runUI( int argc, char* argv[] ) {
     if (argc > 1)
     {
         GUIBool = 1;
