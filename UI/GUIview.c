@@ -38,7 +38,8 @@ int GUIptManualTuneMenu(){
     setButton(buttonSetValue2,"Drop_D_____(D2-A2-D3-G3-B3-E4)");
     setButton(buttonSetValue3,"Standard_D_(D2-G2-C3-F3-A3-D4)");
     setButton(buttonSetValue4,"Drop_C_____(C2-G2-C3-F3-A3-D4)");
-    setButton(buttonSetValue5,"Back__________________________");
+    //back option is removed because gtk is weird i guess
+    //setButton(buttonSetValue5,"Back__________________________");
     while(buttonOutputNumber == -1){
         sched_yield();
     }

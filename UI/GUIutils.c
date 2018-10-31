@@ -63,6 +63,7 @@ void removeButtons(){
 
 void setButton(void* function, char* str){
     gdk_threads_enter();
+
     GtkWidget *button;
     button = gtk_button_new_with_label(str);
     gtk_fixed_put(GTK_FIXED (fixed), button, 200, 200 + buttonNumber*50);

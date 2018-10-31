@@ -188,11 +188,13 @@ void manualTune(){
     } else if (tuning == 4){
         pitchTuneMan("DrC");
     } else if (tuning == 5){
-        //TODO: return to previous
+        //Doing nothing is what we want here
     } else {
         throwMessage("Please enter a valid input!\n");
         manualTune();
     }
+    //returning to previous tab
+    //TODO: implement
 }
 
 void scanTabs(){
@@ -215,8 +217,7 @@ void tuneGuitar(){
     } else if (method == 2){
         manualTune();
     } else if (method == 3){
-        throwMessage("not implemented");
-        //TODO: return to previous
+        //Doing nothing is what we want here
     } else {
         throwMessage("Please enter a valid input!\n");
     }
