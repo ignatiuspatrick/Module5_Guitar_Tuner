@@ -249,7 +249,7 @@ void runProgram(){
     while (!startBool){
         sched_yield();
     }
-    while (0==0){
+    while (1){
         int act = 0;
         act = mainMenuScan();
         if (act == 1){
@@ -283,7 +283,6 @@ int main( int argc, char* argv[] ) {
         GUIBool = 0;
     }
     if (GUIBool){
-        //g_thread_init(NULL);
         gdk_threads_init();
         gtk_init (&argc, &argv);
         window = gtk_window_new (GTK_WINDOW_TOPLEVEL);

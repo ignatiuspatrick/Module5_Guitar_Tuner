@@ -37,8 +37,8 @@ int GUIptManualTuneMenu(){
     setButton(buttonSetValue1,"Standard_E_(E2-A2-D3-G3-B3-E4)");
     setButton(buttonSetValue2,"Drop_D_____(D2-A2-D3-G3-B3-E4)");
     setButton(buttonSetValue3,"Standard_D_(D2-G2-C3-F3-A3-D4)");
-    setButton(buttonSetValue2,"Drop_C_____(C2-G2-C3-F3-A3-D4)");
-    setButton(buttonSetValue3,"Back__________________________");
+    setButton(buttonSetValue4,"Drop_C_____(C2-G2-C3-F3-A3-D4)");
+    setButton(buttonSetValue5,"Back__________________________");
     while(buttonOutputNumber == -1){
         sched_yield();
     }
