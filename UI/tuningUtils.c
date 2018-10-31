@@ -220,41 +220,100 @@ int displayScanTabsGuide(){
     }
 }
 
-void scanTabs(){
-    int beat;
-    // display instructions and menus
-    while (1){
-        beat = displayScanTabsGuide();
-        if (beat == 1) {
-            beat = 2;
-            break;
-        } else if (beat == 2){
-            beat = 3;
-            break;
-        } else if (beat == 3){
-            beat = 4;
-            break;
-        } else if (beat == 4){
-            main();
-            break;
-        } else {
-            throwMessage("Please enter a valid input!");
+float scGetInput(){
+    if (GUIBool){
+        return GUIscGetInput();
+    } else {
+        return TUIscGetInput();
+    }
+}
+
+// make the chord library first
+char translateChord(float input){
+    char res;
+    float smallest = floorf((allfreq[0] - tolerance) * 10);
+    float biggest = floorf((allfreq[12] + tolerance) * 10);
+    // printf("smallest = %f , biggest = %f",smallest, biggest);
+    if (input * 10 >= smallest && input * 10 <= biggest) {
+        // search for the closest key
+        float upperb;
+        float lowerb;
+        for (int i = 0; i < 12; i++) {
+            if (i == 0) { // if it is the first
+                lowerb = floorf(((allfreq[i]) - tolerance) * 10);
+                upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
+            } else if (i == 12) { // if it is the last
+                lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
+                upperb = floorf(((allfreq[i]) + tolerance) * 10);
+            } else { // if it is in between the first n' last
+                lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
+                upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
+            }
+            if (input * 10 >= lowerb && input * 10 <= upperb) {
+                res = allpitch[i];
+                printf("%s\n", allpitch[i]);
+                pitchTuneAuto(allfreq[i], input);
+                break;
+            }
         }
     }
+    return res;
+}
 
-    int input = 0;
-    // scan for start of the record
-    while (!input == 1){
-        input = scanTabsMenuScan();
-    }
-    // record the song
+void scanTabs(){
+    int beat;
     while (1){
+        while (1){
+            beat = displayScanTabsGuide(); // display instructions & menus and get the input
+            if (beat == 1) {
+                beat = 2;
+            } else if (beat == 2){
+                beat = 3;
+            } else if (beat == 3){
+                beat = 4;
+            } else if (beat == 4){
+                break;
+            } else {
+                throwMessage("Please enter a valid input!");
+            }
+        }
+        float intvls[960]; // for 1 minute, the 0th array is always empty
+        int stflag = 0;
+        // scan for start of the record
+        while (!stflag == 1){
+            strflag = scanTabsMenuScan();
+        }
+        int exflag = 0; // turns on when set to 1
 
+        // record the intervals while counting the beat
+        // later add up when the recording is finished in exflag handler, might make another thread
+        while (!exflag == 1){
+            float input;
+            // loop for seconds
+            for (int sec = 0; sec < 60; sec++) {
+                // loop for intervals
+                for (int val = 0; val < 16; val++){
+                    input = scGetInput(); // later input should be replaced
+                    intvls[val*(sec+1)] = input;
+                }
+                throwMessage("Change chord!"); // change chord every second
+            }
+            exflag = 1; // exit recording
+        }
+
+        // determine the length of a chord
+        char result[1000]; // spaces and texts included
+        for (int val = 0; val < 960; val++) {
+            // translate frequencies to chords
+
+            // generate the output
+            if (intvls[val] = 'a'){
+
+            }
+        }
+        // display the result
     }
 
-    // proccess the input
-
-    // display the result
 }
 
 void tuneGuitar(){

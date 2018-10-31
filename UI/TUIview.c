@@ -87,22 +87,29 @@ int TUIscanTabsMenuScan(){
 int TUIdisplayScanTabsGuide() {
     int input;
     printf(" _________________________________________________________________\n");
-    printf("|------------------THE GUIDE TO THE TABS SCANNER------------------|\n");
-    printf("|1. Pick the correct beat for the song                            |\n");
-    printf("|2. Enter 1 to start recording the tabs                           |\n");
-    printf("|3. Prepare to play a different tab every time there is a counter |\n");
-    printf("|4. Switch the chord at the count of 3 or keep playing the same   |\n");
-    printf("|5. When you are done, press 1 again                              |\n");
-    printf("|6. Wait for your result to be displayed                          |\n");
-    printf("|_________________________________________________________________|\n\n");
+    printf("|------------------THE GUIDE TO THE TABS SCANNER-------------------|\n");
+    printf("|1. Pick the correct simple beat for the song                      |\n");
+    printf("|2. Enter 1 to start recording the tabs                            |\n");
+    printf("|3. Prepare to strum a different tab every time there is a counter |\n");
+    printf("|4. Switch the chord at the count of 3 or keep playing the same    |\n");
+    printf("|5. When you are done, press 1 again                               |\n");
+    printf("|6. Wait for your result to be displayed                           |\n");
+    printf("|__________________________________________________________________|\n\n");
     printf(" ________________________________\n");
     printf("|Pick your choice :              |\n");
-    printf("|1. 2/4                          |\n");
-    printf("|2. 3/4                          |\n");
-    printf("|3. 4/4                          |\n");
+    printf("|1. Duple (2/4)                  |\n");
+    printf("|2. Triple (3/4)                 |\n");
+    printf("|3. Quadruple (4/4)              |\n");
     printf("|4. Exit                         |\n");
     printf("|________________________________|\n\n");
     printf("Your choice : ");
     scanf("%d", &input);
+    return input;
+}
+
+float TUIscGetInput() {
+    float input;
+    printf("Input = ");
+    scanf("%f", &input);
     return input;
 }
