@@ -10,8 +10,8 @@ void interruptCom(void)
 void main(){
     pthread_t com_thread_id;
     pthread_create(&com_thread_id, NULL, runCommunication, NULL);
-    delay(1000);
-    interruptCom();
+    /*delay(1000);
+    interruptCom();*/
     pthread_join(com_thread_id, NULL);
     //runCommunication();
 };

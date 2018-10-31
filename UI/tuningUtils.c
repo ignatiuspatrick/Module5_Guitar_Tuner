@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "TUIview.c"
 pthread_t gui_thread;
 #include "GUIview.c"

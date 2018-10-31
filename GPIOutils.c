@@ -30,7 +30,7 @@ double read(void)
 	}
 	//printf("\n");
 	//printf("%f\n",ans);
-	ans = ans / 100;
+	//ans = ans / 100;
 	return ans;
 };
 
@@ -71,11 +71,12 @@ void changeClock (void){
 	if (clockPin){
 		digitalWrite(clockPinNr,0);
 		clockPin = 0;
-		printf("read: %f\n",read());
+		float ans = read();
+		printf("read: %f\n",ans);
 	} else {
 		digitalWrite(clockPinNr,1);
 		clockPin = 1;
-		printf("writing...\n");
+		//printf("writing...\n");
 	}
 };
 
@@ -88,7 +89,7 @@ void *runCommunication (void *vargp)
 	clockPinNr = GPIOchange(0);
 	pinMode(clockPinNr,OUTPUT);
 	do {
-		delay(10);
+		delay(25);
 		changeClock();
 	} while (runComBool);
 };
