@@ -1,0 +1,3 @@
+/home/jandouwe/CLionProjects/Guitar_Tuner_mod5/userinterface/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/jandouwe/CLionProjects/Guitar_Tuner_mod5/userinterface/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jandouwe/CLionProjects/Guitar_Tuner_mod5/userinterface/cmake-build-debug/CMakeFiles/userinterface.dir
