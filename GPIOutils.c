@@ -11,7 +11,7 @@ int setRead(void)
 	}
 };
 
-double read(void)
+double readGPIO(void)
 {
 	//setRead();
 	double ans = 0;
@@ -34,7 +34,7 @@ double read(void)
 	return ans;
 };
 
-int write(double output1)
+int writeGPIO(double output1)
 {
 	int output = (int) (output1 * 100);
 	if (output > 65535)
@@ -71,7 +71,7 @@ void changeClock (void){
 	if (clockPin){
 		digitalWrite(clockPinNr,0);
 		clockPin = 0;
-		float ans = read();
+		float ans = readGPIO();
 		printf("read: %f\n",ans);
 	} else {
 		digitalWrite(clockPinNr,1);
