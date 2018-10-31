@@ -16,6 +16,7 @@ int GUImainScan() {
 void GUIwelcomeText() {
     setDisplayText("Guitar Tuner by Group 30");
 }
+
 int GUItuningMenuScan(){
     buttonSetValueMin1();
     setDisplayText("Which method would you like to use:");
@@ -92,8 +93,4 @@ void GUIptPitchPerfect(){
 
 void GUIThrowMessage(char *message){
     setErrorText(message);
-}
-
-void *runGUI(void *iets) {
-    gtk_main();
 }

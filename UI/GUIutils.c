@@ -33,10 +33,14 @@ void buttonSetValue5(){
 
 
 void setDisplayText(char* str){
+    gdk_threads_enter();
     gtk_label_set_text(GTK_LABEL (displayText), str);
+    gdk_threads_leave();
 }
 void setErrorText(char* str){
+    gdk_threads_enter();
     gtk_label_set_text(GTK_LABEL (errorText), str);
+    gdk_threads_leave();
 }
 
 void setButton(void*, char*);
@@ -49,13 +53,16 @@ void nextEvent(){
 }
 
 void removeButtons(){
+    gdk_threads_enter();
     for(int i = 0; i < buttonNumber; i++){
         gtk_widget_destroy(buttons[i]);
     }
     buttonNumber = 0;
+    gdk_threads_leave();
 }
 
 void setButton(void* function, char* str){
+    gdk_threads_enter();
     GtkWidget *button;
     button = gtk_button_new_with_label(str);
     gtk_fixed_put(GTK_FIXED (fixed), button, 200, 200 + buttonNumber*50);
@@ -64,6 +71,7 @@ void setButton(void* function, char* str){
     buttons[buttonNumber] = button;
     buttonNumber++;
     gtk_widget_show  (button);
+    gdk_threads_leave();
 }
 
 static void destroy( GtkWidget *widget,

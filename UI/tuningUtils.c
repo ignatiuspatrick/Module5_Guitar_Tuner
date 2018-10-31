@@ -238,40 +238,17 @@ void welcomeText(){
     }
 }
 
-int main( int argc, char* argv[] ) {
-    if (argc > 1)
-    {
-        GUIBool = 1;
-    } else {
-        GUIBool = 0;
-    }
-    if (GUIBool){
-        gtk_init (&argc, &argv);
-        window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-        gtk_window_set_title(GTK_WINDOW (window), "Our Application");
-        gtk_window_set_default_size(GTK_WINDOW (window), 500, 750);
+int startBool = 0;
 
-        displayText = gtk_label_new(NULL);
-        errorText = gtk_label_new(NULL);
-        fixed = gtk_fixed_new();
-        gtk_container_add(GTK_CONTAINER (window), GTK_WIDGET (fixed));
-        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (displayText), 100, 50);
-        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (errorText), 100, 100);
+void startProgram(){
+    startBool = 1;
+}
 
-        gtk_widget_show_all  (GTK_WIDGET (window));
-
-
-
-        char *str2 = "pizza is echt super lekker";
-        setDisplayText(str2);
-        setErrorText("");
-
-        setButton(GUIwelcomeText, "hoi");
-
-        g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
-        pthread_create(&gui_thread, NULL, *runGUI, NULL);
-    }
+void runProgram(){
     welcomeText();
+    while (!startBool){
+        sched_yield();
+    }
     while (0==0){
         int act = 0;
         act = mainMenuScan();
@@ -291,6 +268,51 @@ int main( int argc, char* argv[] ) {
         } else {
             throwMessage("Please make a valid choice!");
         }
+    }
+}
+
+void *runGUI(void *iets){
+    runProgram();
+}
+
+int main( int argc, char* argv[] ) {
+    if (argc > 1)
+    {
+        GUIBool = 1;
+    } else {
+        GUIBool = 0;
+    }
+    if (GUIBool){
+        //g_thread_init(NULL);
+        gdk_threads_init();
+        gtk_init (&argc, &argv);
+        window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+        gtk_window_set_title(GTK_WINDOW (window), "Our Application");
+        gtk_window_set_default_size(GTK_WINDOW (window), 500, 750);
+
+        displayText = gtk_label_new(NULL);
+        errorText = gtk_label_new(NULL);
+        fixed = gtk_fixed_new();
+        gtk_container_add(GTK_CONTAINER (window), GTK_WIDGET (fixed));
+        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (displayText), 100, 50);
+        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (errorText), 100, 100);
+
+        gtk_widget_show_all  (GTK_WIDGET (window));
+
+        char *str2 = "Guitar Tuner by Group 30";
+        setDisplayText(str2);
+        setErrorText("");
+
+        setButton(startProgram, "start");
+
+        g_signal_connect (window, "destroy", G_CALLBACK (destroy), NULL);
+        pthread_create(&gui_thread, NULL, *runGUI, NULL);
+        gdk_threads_enter();
+        gtk_main();
+        gdk_threads_leave();
+    } else {
+        startProgram();
+        runProgram();
     }
     if (GUIBool){
         pthread_join(gui_thread, NULL);
