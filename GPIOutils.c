@@ -11,10 +11,10 @@ int setRead(void)
 	}
 };
 
-double readGPIO(void)
+float readGPIO(void)
 {
 	//setRead();
-	double ans = 0;
+	float ans = 0;
 	int i;
 	for(i = 1; i < 17; i = i + 1 )	//From D1 to D16, this is correct as D0 is the clock
 					//D1 is most significant

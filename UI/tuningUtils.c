@@ -7,8 +7,10 @@
 #include "TUIview.c"
 pthread_t gui_thread;
 #include "GUIview.c"
+#include "../GPIOutils.c"
 
 int GUIBool = 1;
+int ComBool = 1;
 
 char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
 char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};
@@ -89,17 +91,23 @@ char* ptAutoTuneMenu(){
 
 void automaticTune(){
     // to be implemented
-    char* cinput;
+    char* cinput = "";
     float input;
     while (1) {
-        cinput = ptAutoTuneMenu();
+        if (!ComBool){
+            cinput = ptAutoTuneMenu();
+        }
         // identify the pitch
         if (!strcmp(cinput, "q")) {
             throwMessage("Quitting program.....\n");
             break;
         } else {
-            input = (float) myatof(cinput);
-            // printf("we received %f", input*10);
+            if (ComBool){
+                input = readGPIO();
+            } else {
+                input = (float) myatof(cinput);
+            }
+            printf("we received %f", input*10);
             float smallest = floorf((allfreq[0] - tolerance) * 10);
             float biggest = floorf((allfreq[12] + tolerance) * 10);
             // printf("smallest = %f , biggest = %f",smallest, biggest);
