@@ -24,7 +24,7 @@ float frstandardd[] = {73.4, 98.0, 130.8, 174.6, 220.0, 293.7};
 float frdropc[]     = {65.4, 98.0, 130.8, 174.6, 220.0, 293.7};
 float allfreq[]     = {65.4, 73.4, 82.4, 98.0, 110.0, 130.8, 146.8, 174.6, 196.0, 220.0, 246.9, 293.7, 329.6};
 
-float tolerance = 0.1;
+float tolerance = 1;
 
 void throwMessage(char *message){
     if (GUIBool){
@@ -134,9 +134,9 @@ void automaticTune(){
                         if (GUIBool){
                             char* str = "we received a " + allpitch[i] + "\n";
                             setFreqText(str);
-                        } else {
+                        } //else {
                             printf("we received a %s (%f)\n", allpitch[i], input);
-                        }
+                        //}
                         printf("%s\n", allpitch[i]);
                         pitchTuneAuto(allfreq[i], input);
                         break;
