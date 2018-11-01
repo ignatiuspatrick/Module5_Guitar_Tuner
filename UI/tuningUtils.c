@@ -343,7 +343,7 @@ int runUI( int argc, char* argv[] ) {
         gtk_container_add(GTK_CONTAINER (window), GTK_WIDGET (fixed));
         gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (displayText), 100, 50);
         gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (errorText), 100, 100);
-        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (freqText), 100, 100);
+        gtk_fixed_put(GTK_FIXED (fixed), GTK_WIDGET (freqText), 100, 150);
 
         gtk_widget_show_all  (GTK_WIDGET (window));
 
