@@ -6,6 +6,7 @@
 GtkWidget *window;
 GtkWidget *displayText;
 GtkWidget *errorText;
+GtkWidget *freqText;
 GtkWidget *fixed;
 //GtkWidget *entry;
 GtkWidget *buttons[4];
@@ -42,6 +43,11 @@ void setErrorText(char* str){
     gtk_label_set_text(GTK_LABEL (errorText), str);
     gdk_threads_leave();
 }
+void setFreqText(char* str){
+    gdk_threads_enter();
+    gtk_label_set_text(GTK_LABEL (freqText), str);
+    gdk_threads_leave();
+}
 
 void setButton(void*, char*);
 void removeButtons();
@@ -66,7 +72,7 @@ void setButton(void* function, char* str){
 
     GtkWidget *button;
     button = gtk_button_new_with_label(str);
-    gtk_fixed_put(GTK_FIXED (fixed), button, 200, 200 + buttonNumber*50);
+    gtk_fixed_put(GTK_FIXED (fixed), button, 250, 200 + buttonNumber*50);
     g_signal_connect (button, "clicked",
                       G_CALLBACK (function), NULL);
     buttons[buttonNumber] = button;
