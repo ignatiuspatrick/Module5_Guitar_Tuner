@@ -11,7 +11,19 @@ int setRead(void)
 	}
 };
 
-float readGPIO(void)
+int valuesLength = 10;
+int valIndex = 0;
+float values[valuesLength];
+
+float readGPIO(void){
+	float sumValues = 0;
+	for (int i = 0 ; i < valuesLength; i++){
+		sumValues += values[i];
+	}
+	return sumValues/valuesLength;
+}
+
+float readPhysicalGPIO(void)
 {
 	//setRead();
 	float ans = 0;
@@ -33,6 +45,19 @@ float readGPIO(void)
 	//ans = ans / 100;
 	return ans;
 };
+
+void updateGPIO(void){
+	float newVal = readPhysicalGPIO();
+	if (valIndex >= 0 && valIndex < valuesLength) {
+		values[valIndex] = newVal;
+	} else {
+		printf("valIndex is wrong");
+	}
+	valIndex++;
+	if (valIndex == valuesLength){
+		valIndex = 0;
+	}
+}
 
 int writeGPIO(double output1)
 {
@@ -71,6 +96,7 @@ void changeClock (void){
 	if (clockPin){
 		digitalWrite(clockPinNr,0);
 		clockPin = 0;
+		updateGPIO();
 		//float ans = readGPIO();
 		//printf("read: %f\n",ans);
 	} else {
