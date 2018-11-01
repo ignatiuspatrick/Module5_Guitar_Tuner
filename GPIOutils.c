@@ -13,12 +13,12 @@ int setRead(void)
 
 int valuesLength = 10;
 int valIndex = 0;
-float values[valuesLength];
+float valuesGPIO[valuesLength];
 
 float readGPIO(void){
 	float sumValues = 0;
 	for (int i = 0 ; i < valuesLength; i++){
-		sumValues += values[i];
+		sumValues += valuesGPIO[i];
 	}
 	return sumValues/valuesLength;
 }
@@ -49,7 +49,7 @@ float readPhysicalGPIO(void)
 void updateGPIO(void){
 	float newVal = readPhysicalGPIO();
 	if (valIndex >= 0 && valIndex < valuesLength) {
-		values[valIndex] = newVal;
+		valuesGPIO[valIndex] = newVal;
 	} else {
 		printf("valIndex is wrong");
 	}
