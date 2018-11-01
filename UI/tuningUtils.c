@@ -71,10 +71,10 @@ void pitchTuneAuto(float target, float input){
     float upperbound = floorf((target + tolerance)*10);
     input = input*10;
     if (input < lowerbound) {
-        printf("hoi%f %f\n",target, input);
+        //printf("hoi%f %f\n",target, input);
         throwMessage("its too low\n");
     } else if (input > upperbound) {
-        printf("hoi%f %f\n",target, input);
+        //printf("hoi%f %f\n",target, input);
         throwMessage("its too high\n");
     } else {
         throwMessage("pitch perfect\n");
@@ -300,13 +300,13 @@ void *runGUI(void *iets){
 }
 
 GdkPixbuf *create_pixbuf(const gchar * filename) {
-    
+
    GdkPixbuf *pixbuf;
    GError *error = NULL;
    pixbuf = gdk_pixbuf_new_from_file(filename, &error);
-   
+
    if (!pixbuf) {
-       
+
       fprintf(stderr, "%s\n", error->message);
       g_error_free(error);
    }

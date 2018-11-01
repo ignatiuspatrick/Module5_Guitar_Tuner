@@ -13,5 +13,5 @@ void main( int argc, char* argv[]){
 	pthread_create(&com_thread_id, NULL, runCommunication, NULL);
 	runUI(argc,argv);
 	interruptCom();
-	pthread_join(com_thread_id, NULL);
+    pthread_join(com_thread_id, NULL);
 };
