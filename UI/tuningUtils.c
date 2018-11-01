@@ -105,7 +105,7 @@ void automaticTune(){
             if (ComBool){
                 while (1){
                     if (clockPin){
-                        input = readGPIO();
+                        input = readPhysicalGPIO();
                         break;
                     }
                 }
