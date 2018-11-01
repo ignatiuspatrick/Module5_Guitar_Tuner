@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <pthread.h>
-#include "GPIOutils.c"
+//#include "GPIOutils.c"
 #include "UI/tuningUtils.c"
 
 void interruptCom(void)
 {
-	runComBool = 0;
+	//runComBool = 0;
 }
 
 void main( int argc, char* argv[]){
