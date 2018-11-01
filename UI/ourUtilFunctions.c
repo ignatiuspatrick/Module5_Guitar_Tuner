@@ -20,22 +20,25 @@ int getNumber(char c){
     } else if (c=='9'){
         return 9;
     } else {
+	printf("char is: %x\n",c&0xff);
         return -1;
     }
 }
 
 float myatof(char* str){
+    printf("\n%c\n\n",str);
     int pointBool = 0;
     float ret = 0;
     int div = 1;
-    for(int i = 0; i < sizeof(str); i++){
+    for (int i = 0; i<sizeof(str); i++){
         char c = str[i];
         if (c == '\0'){
             return ret/div;
         }
         else if (c == '.'){
             if (pointBool){
-                return -1;
+                printf("second point\n");
+		return -1;
             } else {
                 pointBool = 1;
             }
@@ -44,11 +47,13 @@ float myatof(char* str){
             if (number == -1) {
                 return -1;
             }
+	    printf("%d",number);
             if (pointBool) {
                 div = div * 10;
             }
             ret = 10 * ret + number;
         }
+	//str++;
     }
     return ret/div;
 }

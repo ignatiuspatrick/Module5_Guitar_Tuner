@@ -7,7 +7,7 @@
 #include "TUIview.c"
 pthread_t gui_thread;
 #include "GUIview.c"
-#include "../GPIOutils.c"
+//#include "../GPIOutils.c"
 
 int GUIBool = 1;
 int ComBool = 1;
@@ -98,7 +98,7 @@ void automaticTune(){
             cinput = ptAutoTuneMenu();
         }
         // identify the pitch
-        if (!strcmp(cinput, "q")) {
+        if (!strcmp(cinput, "q") || buttonOutputNumber == 3) {
             throwMessage("Quitting program.....\n");
             break;
         } else {
@@ -112,10 +112,10 @@ void automaticTune(){
             } else {
                 input = (float) myatof(cinput);
             }
-            printf("we received %f", input*10);
+            printf("we received %f\n", input);
             float smallest = floorf((allfreq[0] - tolerance) * 10);
             float biggest = floorf((allfreq[12] + tolerance) * 10);
-            // printf("smallest = %f , biggest = %f",smallest, biggest);
+            //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
             if (input * 10 >= smallest && input * 10 <= biggest) {
                 // search for the closest key
                 float upperb;
@@ -299,6 +299,21 @@ void *runGUI(void *iets){
     runProgram();
 }
 
+GdkPixbuf *create_pixbuf(const gchar * filename) {
+
+   GdkPixbuf *pixbuf;
+   GError *error = NULL;
+   pixbuf = gdk_pixbuf_new_from_file(filename, &error);
+
+   if (!pixbuf) {
+
+      fprintf(stderr, "%s\n", error->message);
+      g_error_free(error);
+   }
+
+   return pixbuf;
+}
+
 int runUI( int argc, char* argv[] ) {
     if (argc > 1)
     {
@@ -311,7 +326,10 @@ int runUI( int argc, char* argv[] ) {
         gtk_init (&argc, &argv);
         window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
         gtk_window_set_title(GTK_WINDOW (window), "Our Application");
-        gtk_window_set_default_size(GTK_WINDOW (window), 500, 750);
+        GdkPixbuf *icon;
+	icon = create_pixbuf("music.png");
+	gtk_window_set_icon(GTK_WINDOW(window), icon);
+	gtk_window_set_default_size(GTK_WINDOW (window), 500, 750);
 
         displayText = gtk_label_new(NULL);
         errorText = gtk_label_new(NULL);
