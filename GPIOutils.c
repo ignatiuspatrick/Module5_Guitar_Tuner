@@ -71,8 +71,8 @@ void changeClock (void){
 	if (clockPin){
 		digitalWrite(clockPinNr,0);
 		clockPin = 0;
-		float ans = readGPIO();
-		printf("read: %f\n",ans);
+		//float ans = readGPIO();
+		//printf("read: %f\n",ans);
 	} else {
 		digitalWrite(clockPinNr,1);
 		clockPin = 1;

@@ -9,8 +9,9 @@ void interruptCom(void)
 }
 
 void main( int argc, char* argv[]){
-	//pthread_t com_thread_id;
-	//pthread_create(&com_thread_id, NULL, runCommunication, NULL);
+	pthread_t com_thread_id;
+	pthread_create(&com_thread_id, NULL, runCommunication, NULL);
 	runUI(argc,argv);
-	//pthread_join(com_thread_id, NULL);
+	interruptCom();
+	pthread_join(com_thread_id, NULL);
 };
