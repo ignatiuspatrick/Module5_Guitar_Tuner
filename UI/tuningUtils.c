@@ -103,7 +103,12 @@ void automaticTune(){
             break;
         } else {
             if (ComBool){
-                input = readGPIO();
+                while (1){
+                    if (clockPin){
+                        input = readGPIO();
+                        break;
+                    }
+                }
             } else {
                 input = (float) myatof(cinput);
             }
@@ -161,7 +166,16 @@ void pitchTuneMan(char* tuning){
         float lowerbound = floorf((freq - tolerance)*10);
         float upperbound = floorf((freq + tolerance)*10);
         while (1){
-            input = ptGetInput();
+            if (ComBool){
+                while (1){
+                    if (clockPin){
+                        input = readGPIO();
+                        break;
+                    }
+                }
+            } else {
+                input = ptGetInput();
+            }
             input = input*10;
             if (input >= lowerbound && input <= upperbound){
                 ptPitchPerfect();
