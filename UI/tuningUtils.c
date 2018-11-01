@@ -69,10 +69,10 @@ void pitchTuneAuto(float target, float input){
     float upperbound = floorf((target + tolerance)*10);
     input = input*10;
     if (input < lowerbound) {
-        //printf("hoi%f %f\n",target, input);
+        printf("hoi%f %f\n",target, input);
         throwMessage("its too low\n");
     } else if (input > upperbound) {
-        //printf("hoi%f %f\n",target, input);
+        printf("hoi%f %f\n",target, input);
         throwMessage("its too high\n");
     } else {
         throwMessage("pitch perfect\n");
@@ -99,10 +99,10 @@ void automaticTune(){
             break;
         } else {
             input = (float) myatof(cinput);
-            // printf("we received %f", input*10);
+            printf("we received %s\n", cinput);
             float smallest = floorf((allfreq[0] - tolerance) * 10);
             float biggest = floorf((allfreq[12] + tolerance) * 10);
-            // printf("smallest = %f , biggest = %f",smallest, biggest);
+            printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
             if (input * 10 >= smallest && input * 10 <= biggest) {
                 // search for the closest key
                 float upperb;
