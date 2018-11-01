@@ -3,24 +3,30 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
 #include "TUIview.c"
 pthread_t gui_thread;
 #include "GUIview.c"
 #include "ourUtilFunctions.c"
 
 int GUIBool = 1;
+int exflag = 0; // turns on when set to 1
 
-char *pstandarde[6] = {"E2","A2","D3","G3","B3","E4"};
-char *pdropd[6]     = {"D2","A2","D3","G3","B3","E4"};
-char *pstandardd[6] = {"D2","G2","C3","F3","A3","D4"};
-char *pdropc[6]     = {"C2","G2","C3","F3","A3","D4"};
-char *allpitch[]    = {"C2","D2","E2","G2","A2","C3","D3","F3","G3","A3","B3","D4","E4"}; //0-12
-char *alltuning[]   = {"StE", "DrD", "StD", "DrC"};
-float frstandarde[] = {82.4, 110.0, 146.8, 196.0, 246.9, 329.6};
-float frdropd[]     = {73.4, 110.0, 146.8, 196.0, 246.9, 329.6};
-float frstandardd[] = {73.4, 98.0, 130.8, 174.6, 220.0, 293.7};
-float frdropc[]     = {65.4, 98.0, 130.8, 174.6, 220.0, 293.7};
-float allfreq[]     = {65.4, 73.4, 82.4, 98.0, 110.0, 130.8, 146.8, 174.6, 196.0, 220.0, 246.9, 293.7, 329.6};
+char *pstandarde[6]   = {"E2","A2","D3","G3","B3","E4"};
+char *pdropd[6]       = {"D2","A2","D3","G3","B3","E4"};
+char *pstandardd[6]   = {"D2","G2","C3","F3","A3","D4"};
+char *pdropc[6]       = {"C2","G2","C3","F3","A3","D4"};
+char *allpitch[]      = {"C2","D2","E2","G2","A2","C3","D3","F3","G3","A3","B3","D4","E4"}; //0-12
+char *alltuning[]     = {"StE", "DrD", "StD", "DrC"};
+float frstandarde[]   = {82.4, 110.0, 146.8, 196.0, 246.9, 329.6};
+float frdropd[]       = {73.4, 110.0, 146.8, 196.0, 246.9, 329.6};
+float frstandardd[]   = {73.4, 98.0, 130.8, 174.6, 220.0, 293.7};
+float frdropc[]       = {65.4, 98.0, 130.8, 174.6, 220.0, 293.7};
+float allfreq[]       = {65.4, 73.4, 82.4, 98.0, 110.0, 130.8, 146.8, 174.6, 196.0, 220.0, 246.9, 293.7, 329.6};
+char *allstrumpitch[] = {"A","B","C","D","E","F","G"};
+float allstrumfreq    = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0};
+// make a strum array library here.
+
 
 float tolerance = 0.1;
 
@@ -228,11 +234,11 @@ float scGetInput(){
     }
 }
 
-// make the chord library first
-char translateChord(float input){
+// make the actual chord library first
+char* translateChord(float input){
     char res;
-    float smallest = floorf((allfreq[0] - tolerance) * 10);
-    float biggest = floorf((allfreq[12] + tolerance) * 10);
+    float smallest = floorf((allstrumfreq[0] - tolerance) * 10);
+    float biggest = floorf((allstrumfreq[12] + tolerance) * 10);
     // printf("smallest = %f , biggest = %f",smallest, biggest);
     if (input * 10 >= smallest && input * 10 <= biggest) {
         // search for the closest key
@@ -251,13 +257,19 @@ char translateChord(float input){
             }
             if (input * 10 >= lowerb && input * 10 <= upperb) {
                 res = allpitch[i];
-                printf("%s\n", allpitch[i]);
-                pitchTuneAuto(allfreq[i], input);
                 break;
             }
         }
     }
     return res;
+}
+
+void* turnExitFlag(void *arg){
+    int fl;
+    scanf("%d", fl);
+    if (fl == 1){
+        exflag = 1;
+    }
 }
 
 void scanTabs(){
@@ -283,35 +295,53 @@ void scanTabs(){
         while (!stflag == 1){
             strflag = scanTabsMenuScan();
         }
-        int exflag = 0; // turns on when set to 1
-
         // record the intervals while counting the beat
-        // later add up when the recording is finished in exflag handler, might make another thread
+        pthread_t exit;
         while (!exflag == 1){
             float input;
+            int count = 0; // array intvls pointer
             // loop for seconds
             for (int sec = 0; sec < 60; sec++) {
                 // loop for intervals
+                // run the turnExitFlag to scan if the user enters 1 to stop
+                pthread_create(&exit, NULL, &turnExitFlag, NULL);
                 for (int val = 0; val < 16; val++){
                     input = scGetInput(); // later input should be replaced
                     intvls[val*(sec+1)] = input;
+                    count++;
                 }
                 throwMessage("Change chord!"); // change chord every second
             }
             exflag = 1; // exit recording
+            intvls[count] = -1.0; // to indicate the end of the array
         }
-
+        pthread_join(exit, NULL);
         // determine the length of a chord
-        char result[1000]; // spaces and texts included
+        int chordc = 0;
+        char* result[960];
         for (int val = 0; val < 960; val++) {
-            // translate frequencies to chords
-
-            // generate the output
-            if (intvls[val] = 'a'){
+            if (intvls[val] == -1.0){
+                break;
+            }
+            char now[] = translateChord(intvls[val]); // translate current freq to interval
+            char temp[2];
+            if (val == 0){
+                chordc++;
+                strcpy(temp, now);
+            } else {
+                if (strcmp(now,bef) == 0){ // if its the same as before
+                    chordc++;
+                } else { // if its different than before
+                    // write result
+                    snprintf(result,3,"%d%s", chordc, temp);
+                    throwMessage(result); // display the result
+                    // reset counter
+                    chordc = 0;
+                    strcpy(temp,now);
+                }
 
             }
         }
-        // display the result
     }
 
 }
