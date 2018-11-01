@@ -132,7 +132,7 @@ void automaticTune(){
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
                         if (GUIBool){
-                            char str1[];
+                            char str1[50];
                             snprintf(str1, 50, "we received a %s (%f)\n", allpitch[i], input);
                             char* str = str1;
                             setFreqText(str);
