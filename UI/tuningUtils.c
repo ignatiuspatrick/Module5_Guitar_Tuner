@@ -112,7 +112,6 @@ void automaticTune(){
             } else {
                 input = (float) myatof(cinput);
             }
-            printf("we received %f\n", input);
             float smallest = floorf((allfreq[0] - tolerance) * 10);
             float biggest = floorf((allfreq[12] + tolerance) * 10);
             //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
@@ -132,6 +131,11 @@ void automaticTune(){
                         upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
+                        if (GUIBool){
+                            setFreqText("we received a %s (%f)\n", allpitch[i], input);
+                        } else {
+                            printf("we received a %s (%f)\n", allpitch[i], input);
+                        }
                         printf("%s\n", allpitch[i]);
                         pitchTuneAuto(allfreq[i], input);
                         break;

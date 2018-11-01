@@ -72,7 +72,7 @@ void setButton(void* function, char* str){
 
     GtkWidget *button;
     button = gtk_button_new_with_label(str);
-    gtk_fixed_put(GTK_FIXED (fixed), button, 250, 200 + buttonNumber*50);
+    gtk_fixed_put(GTK_FIXED (fixed), button, 200, 250 + buttonNumber*50);
     g_signal_connect (button, "clicked",
                       G_CALLBACK (function), NULL);
     buttons[buttonNumber] = button;
