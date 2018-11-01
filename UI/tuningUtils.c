@@ -105,7 +105,7 @@ void automaticTune(){
             if (ComBool){
                 while (1){
                     if (clockPin){
-                        input = readPhysicalGPIO();
+                        input = readGPIO();
                         break;
                     }
                 }
@@ -133,7 +133,7 @@ void automaticTune(){
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
                         if (GUIBool){
                             char* str = "";
-                            snprintf(str, 50, "we received a %s (%f)\n", allpitch[i], input);
+                            //snprintf(str, 50, "we received a %s (%f)\n", allpitch[i], input);
                             setFreqText(str);
                         } else {
                             printf("we received a %s (%f)\n", allpitch[i], input);
