@@ -93,11 +93,11 @@ void automaticTune(){
     char* cinput = "";
     float input;
     while (1) {
-        if (!ComBool){
-            cinput = ptAutoTuneMenu();
-        }
+        //if (!ComBool){
+        cinput = ptAutoTuneMenu();
+        //}
         // identify the pitch
-        if (!strcmp(cinput, "q") || buttonOutputNumber == 3) {
+        if (!strcmp(cinput, "q") || buttonOutputNumber == 1) {
             throwMessage("Quitting program.....\n");
             break;
         } else {
@@ -131,6 +131,15 @@ void automaticTune(){
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
                         if (GUIBool){
+                    if (i == 0) { // if it is the first
+                        lowerb = floorf(((allfreq[i]) - tolerance - ((allfreq[i+1] - allfreq[i])/2)) * 10);
+                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
+                    } else if (i == 12) { // if it is the last
+                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
+                        upperb = floorf(((allfreq[i]) + tolerance + ((allfreq[i] - allfreq[i-1])/2)) * 10);
+                    } else { // if it is in between the first n' last
+                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
+                        upperb = fl
                             char str1[50];
                             snprintf(str1, 50, "we received a %s (%f)\n", allpitch[i], input);
                             char* str = str1;
@@ -166,12 +175,27 @@ void pitchTuneMan(char* tuning){
     } else  if (!strcmp("DrC",tuning)){
         memcpy(&tuneprop, &frdropc, sizeof tuneprop);
     }
+
+    char* tunechar[6];
+    if (!strcmp("StE",tuning)){
+        memcpy(&tunechar, &pstandarde, sizeof tunechar);
+    } else  if (!strcmp("DrD",tuning)){
+        memcpy(&tunechar, &pdropd, sizeof tunechar);
+    } else  if (!strcmp("StD",tuning)){
+        memcpy(&tunechar, &pstandardd, sizeof tunechar);
+    } else  if (!strcmp("DrC",tuning)){
+        memcpy(&tunechar, &pdropc, sizeof tunechar);
+    }
+
     for (int a = 0 ; a < 6 ; a++) {
+        if (GUIBool){
+            GUImanTuning(tunechar[a]);
+        }
         float freq = tuneprop[a];
         float input;
         float lowerbound = floorf((freq - tolerance)*10);
         float upperbound = floorf((freq + tolerance)*10);
-        while (1){
+        while (buttonOutputNumber == -1){
             if (ComBool){
                 while (1){
                     if (clockPin){
@@ -185,7 +209,7 @@ void pitchTuneMan(char* tuning){
             input = input*10;
             if (input >= lowerbound && input <= upperbound){
                 ptPitchPerfect();
-                break;
+                //break;
             } else {
                 if (input < lowerbound) {
                     ptLow();

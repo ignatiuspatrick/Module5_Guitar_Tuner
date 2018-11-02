@@ -64,19 +64,35 @@ int GUIptManualTuneMenu(){
     return tuning;*/
 }
 
+void GUImanTuning(char* note){
+    buttonSetValueMin1();
+    char str1[50];
+    snprintf(str1, 50, "tuning a %s", note);
+    char* str = str1;
+    setDisplayText(str);
+    removeButtons();
+    setButton(buttonSetValue1,"Next");
+}
+
 char* GUIptAutoTuneMenu(){
-    char cinput2[5];
+    /*char cinput2[5];
     printf("Enter q to quit\n");
     printf("Input : ");
     scanf("%s", cinput2);
     char* cinput = cinput2;
-    return cinput;
+    return cinput;*/
+    buttonSetValueMin1();
+    setDisplayText("Good luck with tuning");
+    setButton(buttonSetValue1,"Go Back");
+    removeButtons();
+    return "";
 }
 
 float GUIptGetInput(){
     char cinput2[5];
     printf("Input : ");
-    scanf("%s", cinput2); // read input received from the fpga, later will be replaced
+    scanf("%s", cinput2); //buttonSetValueMin1();
+    setDisplayText("Which tuning do you want to do?"); read input received from the fpga, later will be replaced
     char* cinput = cinput2;
     float ret_input = myatof(cinput);
     return ret_input;
