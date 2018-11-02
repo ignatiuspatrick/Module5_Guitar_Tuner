@@ -7,7 +7,6 @@
 #include "TUIview.c"
 pthread_t gui_thread;
 #include "GUIview.c"
-//#include "../GPIOutils.c"
 
 int GUIBool = 1;
 int ComBool = 1;

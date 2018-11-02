@@ -3,6 +3,8 @@
 int GUImainScan() {
     buttonSetValueMin1();
     setDisplayText("Menu:");
+    setFreqText("");
+    setErrorText("");
     removeButtons();
     setButton(buttonSetValue1,"Tune guitar");
     setButton(buttonSetValue2,"Scan tabs");
@@ -20,6 +22,8 @@ void GUIwelcomeText() {
 int GUItuningMenuScan(){
     buttonSetValueMin1();
     setDisplayText("Which method would you like to use:");
+    setFreqText("");
+    setErrorText("");
     removeButtons();
     setButton(buttonSetValue1,"Automatic");
     setButton(buttonSetValue2,"Manual");
@@ -33,6 +37,8 @@ int GUItuningMenuScan(){
 int GUIptManualTuneMenu(){
     buttonSetValueMin1();
     setDisplayText("Which tuning do you want to do?");
+    setFreqText("");
+    setErrorText("");
     removeButtons();
     setButton(buttonSetValue1,"Standard_E_(E2-A2-D3-G3-B3-E4)");
     setButton(buttonSetValue2,"Drop_D_____(D2-A2-D3-G3-B3-E4)");
