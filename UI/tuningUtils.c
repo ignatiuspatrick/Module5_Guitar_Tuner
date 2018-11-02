@@ -180,7 +180,7 @@ void pitchTuneMan(char* tuning){
 
     for (int a = 0 ; a < 6 ; a++) {
         if (GUIBool) {
-            GUImanTuning(tunechar[a])
+            GUImanTuning(tunechar[a]);
         }
         float freq = tuneprop[a];
         float input;
