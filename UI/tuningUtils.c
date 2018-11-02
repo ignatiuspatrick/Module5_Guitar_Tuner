@@ -131,15 +131,6 @@ void automaticTune(){
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
                         if (GUIBool){
-                    if (i == 0) { // if it is the first
-                        lowerb = floorf(((allfreq[i]) - tolerance - ((allfreq[i+1] - allfreq[i])/2)) * 10);
-                        upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
-                    } else if (i == 12) { // if it is the last
-                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
-                        upperb = floorf(((allfreq[i]) + tolerance + ((allfreq[i] - allfreq[i-1])/2)) * 10);
-                    } else { // if it is in between the first n' last
-                        lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
-                        upperb = fl
                             char str1[50];
                             snprintf(str1, 50, "we received a %s (%f)\n", allpitch[i], input);
                             char* str = str1;
@@ -188,8 +179,8 @@ void pitchTuneMan(char* tuning){
     }
 
     for (int a = 0 ; a < 6 ; a++) {
-        if (GUIBool){
-            GUImanTuning(tunechar[a]);
+        if (GUIBool) {
+            GUImanTuning(tunechar[a])
         }
         float freq = tuneprop[a];
         float input;

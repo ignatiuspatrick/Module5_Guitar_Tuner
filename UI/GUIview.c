@@ -92,7 +92,7 @@ float GUIptGetInput(){
     char cinput2[5];
     printf("Input : ");
     scanf("%s", cinput2); //buttonSetValueMin1();
-    setDisplayText("Which tuning do you want to do?"); read input received from the fpga, later will be replaced
+    setDisplayText("Which tuning do you want to do?"); //read input received from the fpga, later will be replaced
     char* cinput = cinput2;
     float ret_input = myatof(cinput);
     return ret_input;
