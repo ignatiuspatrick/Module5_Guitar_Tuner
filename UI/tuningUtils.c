@@ -106,6 +106,7 @@ void automaticTune(){
                 while (1){
                     if (clockPin){
                         input = readGPIO();
+                        printf("%f\n",input);
                         break;
                     }
                 }

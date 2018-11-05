@@ -17,12 +17,12 @@ float valuesGPIO[valuesLength];
 
 float readGPIO(void){
 	float sumValues = 0;
-	printf("\n");
+	//printf("\n");
 	for (int i = 0 ; i < valuesLength; i++){
 		sumValues += valuesGPIO[i];
-		printf("%f\n",valuesGPIO[i]);
+		//printf("%f\n",valuesGPIO[i]);
 	}
-	printf("total: %f\n",sumValues);
+	//printf("total: %f\n",sumValues);
 	return sumValues/valuesLength;
 }
 
