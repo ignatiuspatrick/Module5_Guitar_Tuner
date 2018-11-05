@@ -117,12 +117,13 @@ void automaticTune(){
             //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input * 10);
             if (input == 9999){
                 if (GUIBool){
+                    setErrorText("");
                     setFreqText("play a string");
                 } else {
                     printf("play a string");
                 }
             } else if (input * 10 >= smallest && input * 10 <= biggest) {
-                printf("%f\n",input);
+                //printf("%f\n",input);
                 // search for the closest key
                 float upperb;
                 float lowerb;
@@ -139,7 +140,7 @@ void automaticTune(){
                         upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
-                        printf("after if lowerb:%f upperb:%f input:%f",lowerb, upperb, input*10);
+                        //printf("after if lowerb:%f upperb:%f input:%f",lowerb, upperb, input*10);
                         if (GUIBool){
                             char str1[50];
                             snprintf(str1, 50, "we received a %s (%.2f)\n", allpitch[i], input);
@@ -254,7 +255,6 @@ void manualTune(){
         manualTune();
     }
     //returning to previous tab
-    //TODO: implement
 }
 
 void scanTabs(){
