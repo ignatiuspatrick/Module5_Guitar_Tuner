@@ -122,6 +122,7 @@ void automaticTune(){
                     printf("play a string");
                 }
             } else if (input * 10 >= smallest && input * 10 <= biggest) {
+                printf("%f\n",input);
                 // search for the closest key
                 float upperb;
                 float lowerb;
