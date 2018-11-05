@@ -139,6 +139,7 @@ void automaticTune(){
                         upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
+                        printf("second %f\n",input);
                         if (GUIBool){
                             char str1[50];
                             snprintf(str1, 50, "we received a %s (%f)\n", allpitch[i], input);
