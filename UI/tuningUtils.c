@@ -195,8 +195,8 @@ void pitchTuneMan(char* tuning){
         }
         float freq = tuneprop[a];
         float input;
-        float lowerbound = floorf((freq - tolerance)*10);
-        float upperbound = floorf((freq + tolerance)*10);
+        float lowerbound = floorf((freq - tolerance)*10 - 200);
+        float upperbound = floorf((freq + tolerance)*10 + 200);
         while (buttonOutputNumber == -1){
             if (ComBool){
                 while (1){
@@ -211,6 +211,7 @@ void pitchTuneMan(char* tuning){
             input = input*10;
             if (input == 9999){
                 if (GUIBool){
+                    setErrorText("");
                     setFreqText("play a string");
                 } else {
                     printf("play a string");
