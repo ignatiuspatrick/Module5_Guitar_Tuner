@@ -92,10 +92,11 @@ void automaticTune(){
     // to be implemented
     char* cinput = "";
     float input;
+    ptAutoTuneMenu();
     while (1) {
-        //if (!ComBool){
-        cinput = ptAutoTuneMenu();
-        //}
+        if (!ComBool && !GUIBool){
+            cinput = ptAutoTuneMenu();
+        }
         // identify the pitch
         if (!strcmp(cinput, "q") || buttonOutputNumber == 1) {
             throwMessage("Quitting program.....\n");
