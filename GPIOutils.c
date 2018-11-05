@@ -48,6 +48,7 @@ float readPhysicalGPIO(void)
 
 void updateGPIO(void){
 	float newVal = readPhysicalGPIO();
+	printf("%f\n",newVal);
 	if (valIndex >= 0 && valIndex < valuesLength) {
 		valuesGPIO[valIndex] = newVal;
 	} else {

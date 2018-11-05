@@ -146,7 +146,7 @@ void automaticTune(){
                         } else {
                             printf("we received a %s (%.2f)\n", allpitch[i], input);
                         }
-                        printf("%s\n", allpitch[i]);
+                        //printf("%s\n", allpitch[i]);
                         pitchTuneAuto(allfreq[i], input);
                         break;
                     }
