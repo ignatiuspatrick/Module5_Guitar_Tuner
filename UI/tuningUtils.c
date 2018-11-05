@@ -112,8 +112,8 @@ void automaticTune(){
             } else {
                 input = (float) myatof(cinput);
             }
-            float smallest = floorf((allfreq[0] - tolerance) * 10);
-            float biggest = floorf((allfreq[12] + tolerance) * 10);
+            float smallest = floorf(((allfreq[i]) - tolerance - ((allfreq[i+1] - allfreq[i])/2)) * 10);
+            float biggest = floorf(((allfreq[i]) + tolerance + ((allfreq[i] - allfreq[i-1])/2)) * 10);
             //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
             if (input == 9999){
                 if (GUIBool){
@@ -127,11 +127,11 @@ void automaticTune(){
                 float lowerb;
                 for (int i = 0; i < 12; i++) {
                     if (i == 0) { // if it is the first
-                        lowerb = floorf(((allfreq[i]) - tolerance - ((allfreq[i+1] - allfreq[i])/2)) * 10);
+                        lowerb = smallest;
                         upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     } else if (i == 12) { // if it is the last
                         lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
-                        upperb = floorf(((allfreq[i]) + tolerance + ((allfreq[i] - allfreq[i-1])/2)) * 10);
+                        upperb = biggest;
                     } else { // if it is in between the first n' last
                         lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
                         upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
