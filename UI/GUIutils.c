@@ -17,6 +17,7 @@ void buttonSetValueMin1(){
     buttonOutputNumber = -1;
 }
 void buttonSetValue1(){
+    printf("hoi");
     buttonOutputNumber = 1;
 }
 void buttonSetValue2(){
