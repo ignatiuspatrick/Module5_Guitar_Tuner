@@ -83,8 +83,8 @@ char* GUIptAutoTuneMenu(){
     return cinput;*/
     buttonSetValueMin1();
     setDisplayText("Good luck with tuning");
-    setButton(buttonSetValue1,"Go Back");
     removeButtons();
+    setButton(buttonSetValue1,"Go Back");
     return "";
 }
 
