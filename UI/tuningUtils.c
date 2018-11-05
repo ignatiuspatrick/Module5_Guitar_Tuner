@@ -112,18 +112,16 @@ void automaticTune(){
             } else {
                 input = (float) myatof(cinput);
             }
-            float smallest = floorf(((allfreq[0]) - tolerance - ((allfreq[1] - allfreq[0])/2)) * 10);
-            float biggest = floorf(((allfreq[12]) + tolerance + ((allfreq[12] - allfreq[11])/2)) * 10);
+            float smallest = floorf((allfreq[0] - tolerance) * 10);
+            float biggest = floorf((allfreq[12] + tolerance) * 10);
             //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
             if (input == 9999){
                 if (GUIBool){
-                    setErrorText("");
                     setFreqText("play a string");
                 } else {
                     printf("play a string");
                 }
             } else if (input * 10 >= smallest && input * 10 <= biggest) {
-                printf("%f\n",input);
                 // search for the closest key
                 float upperb;
                 float lowerb;
@@ -139,10 +137,9 @@ void automaticTune(){
                         upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
-                        //printf("second %f\n",input);
                         if (GUIBool){
                             char str1[50];
-                            snprintf(str1, 50, "we received a %s (%f)\n", allpitch[i], input);
+                            snprintf(str1, 50, "we received a %s (%.2f)\n", allpitch[i], input);
                             char* str = str1;
                             setFreqText(str);
                         } else {
@@ -153,9 +150,9 @@ void automaticTune(){
                         break;
                     }
                 }
-            } else if (input * 10 < smallest) {
+            } else if (input * 10 < floorf((allfreq[0] - tolerance) * 10)) {
                 throwMessage("Input is too low\n");
-            } else if (input * 10 > biggest) {
+            } else if (input * 10 > floorf((allfreq[12] + tolerance) * 10)) {
                 throwMessage("Input is too high\n");
             } else {
                 throwMessage("Please enter another input\n");
@@ -209,11 +206,7 @@ void pitchTuneMan(char* tuning){
             }
             input = input*10;
             if (input == 9999){
-                if (GUIBool){if (GUIBool){
-                    setFreqText("play a string");
-                } else {
-                    printf("play a string");
-                }
+                if (GUIBool){
                     setFreqText("play a string");
                 } else {
                     printf("play a string");
