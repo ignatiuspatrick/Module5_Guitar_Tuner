@@ -20,6 +20,7 @@ float readGPIO(void){
 	for (int i = 0 ; i < valuesLength; i++){
 		sumValues += valuesGPIO[i];
 	}
+	printf("%f %c\n",sumValues,valuesLength);
 	return sumValues/valuesLength;
 }
 
@@ -48,7 +49,7 @@ float readPhysicalGPIO(void)
 
 void updateGPIO(void){
 	float newVal = readPhysicalGPIO();
-	printf("%f\n",newVal);
+	//printf("%f\n",newVal);
 	if (valIndex >= 0 && valIndex < valuesLength) {
 		valuesGPIO[valIndex] = newVal;
 	} else {
