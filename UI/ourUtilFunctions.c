@@ -26,7 +26,7 @@ int getNumber(char c){
 }
 
 float myatof(char* str){
-    printf("\n%c\n\n",str);
+    //printf("\n%c\n\n",str);
     int pointBool = 0;
     float ret = 0;
     int div = 1;

@@ -114,7 +114,13 @@ void automaticTune(){
             float smallest = floorf((allfreq[0] - tolerance) * 10);
             float biggest = floorf((allfreq[12] + tolerance) * 10);
             //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
-            if (input * 10 >= smallest && input * 10 <= biggest) {
+            if (input == 9999){
+                if (GUIBool){
+                    setFreqText("play a string");
+                } else {
+                    printf("play a string");
+                }
+            } else if (input * 10 >= smallest && input * 10 <= biggest) {
                 // search for the closest key
                 float upperb;
                 float lowerb;
@@ -132,11 +138,11 @@ void automaticTune(){
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
                         if (GUIBool){
                             char str1[50];
-                            snprintf(str1, 50, "we received a %s (%f)\n", allpitch[i], input);
+                            snprintf(str1, 50, "we received a %s (%.2f)\n", allpitch[i], input);
                             char* str = str1;
                             setFreqText(str);
                         } else {
-                            printf("we received a %s (%f)\n", allpitch[i], input);
+                            printf("we received a %s (%.2f)\n", allpitch[i], input);
                         }
                         printf("%s\n", allpitch[i]);
                         pitchTuneAuto(allfreq[i], input);
@@ -198,7 +204,17 @@ void pitchTuneMan(char* tuning){
                 input = ptGetInput();
             }
             input = input*10;
-            if (input >= lowerbound && input <= upperbound){
+            if (input == 9999){
+                if (GUIBool){if (GUIBool){
+                    setFreqText("play a string");
+                } else {
+                    printf("play a string");
+                }
+                    setFreqText("play a string");
+                } else {
+                    printf("play a string");
+                }
+            } else if (input >= lowerbound && input <= upperbound){
                 ptPitchPerfect();
                 //break;
             } else {
@@ -336,12 +352,13 @@ GdkPixbuf *create_pixbuf(const gchar * filename) {
 }
 
 int runUI( int argc, char* argv[] ) {
-    if (argc > 1)
+    /*if (argc > 1)
     {
         GUIBool = 1;
     } else {
         GUIBool = 0;
-    }
+    }*/
+    GUIBool = 1;
     if (GUIBool){
         gdk_threads_init();
         gtk_init (&argc, &argv);

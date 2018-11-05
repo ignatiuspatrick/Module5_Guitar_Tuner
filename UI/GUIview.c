@@ -7,7 +7,7 @@ int GUImainScan() {
     setErrorText("");
     removeButtons();
     setButton(buttonSetValue1,"Tune guitar");
-    setButton(buttonSetValue2,"Scan tabs");
+    //setButton(buttonSetValue2,"Scan tabs");
     setButton(buttonSetValue3,"Exit");
     while(buttonOutputNumber == -1){
         sched_yield();
