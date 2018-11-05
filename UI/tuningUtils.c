@@ -114,7 +114,7 @@ void automaticTune(){
             }
             float smallest = floorf((allfreq[0] - tolerance) * 10);
             float biggest = floorf((allfreq[12] + tolerance) * 10);
-            //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
+            printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input * 10);
             if (input == 9999){
                 if (GUIBool){
                     setFreqText("play a string");
