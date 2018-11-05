@@ -133,11 +133,13 @@ void automaticTune(){
                     } else if (i == 12) { // if it is the last
                         lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
                         upperb = floorf(((allfreq[i]) + tolerance + ((allfreq[i] - allfreq[i-1])/2)) * 10);
+                        printf("lowerb:%f upperb:%f input:%f",lowerb, upperb, input*10);
                     } else { // if it is in between the first n' last
                         lowerb = floorf(((allfreq[i - 1] + allfreq[i]) / 2 - tolerance) * 10);
                         upperb = floorf(((allfreq[i] + allfreq[i + 1]) / 2 + tolerance) * 10);
                     }
                     if (input * 10 >= lowerb && input * 10 <= upperb) {
+                        printf("after if lowerb:%f upperb:%f input:%f",lowerb, upperb, input*10);
                         if (GUIBool){
                             char str1[50];
                             snprintf(str1, 50, "we received a %s (%.2f)\n", allpitch[i], input);
