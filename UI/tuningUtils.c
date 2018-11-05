@@ -117,6 +117,7 @@ void automaticTune(){
             //printf("smallest = %f , biggest = %f , input = %f\n",smallest, biggest,input);
             if (input == 9999){
                 if (GUIBool){
+                    setErrorText("");
                     setFreqText("play a string");
                 } else {
                     printf("play a string");
