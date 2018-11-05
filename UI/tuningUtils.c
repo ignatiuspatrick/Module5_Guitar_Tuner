@@ -151,9 +151,9 @@ void automaticTune(){
                         break;
                     }
                 }
-            } else if (input * 10 < smallest)) {
+            } else if (input * 10 < smallest) {
                 throwMessage("Input is too low\n");
-            } else if (input * 10 > biggest)) {
+            } else if (input * 10 > biggest) {
                 throwMessage("Input is too high\n");
             } else {
                 throwMessage("Please enter another input\n");
